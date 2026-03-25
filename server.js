@@ -40,12 +40,16 @@ app.post("/order", async (req, res) => {
         // --- كود إشعار التلغرام الجديد ---
         const botToken = "8157330507:AAEWuYgdc0DwzeQjK-sLQiSPSd5zR64jotA"; 
         const chatId = "1930480017";
-       const cleanPhone = req.body.phone.startsWith('0') ? '962' + req.body.phone.substring(1) : req.body.phone;
-        const whatsappLink = `https://wa.me/${cleanPhone}?text=${encodeURIComponent('أهلاً بك في لوميير LUMIERE، استلمنا طلبك لعطر Pacific Chill.. متى يناسبك التوصيل؟')}`;
+     app.post("/order", async (req, res) => {
+    try {
+        const newOrder = new Order(req.body);
+        await newOrder.save();
 
-        const message = `🔔 طلب جديد لـ LUMIERE!\n\n👤 الاسم: ${req.body.name}\n📞 الهاتف: ${req.body.phone}\n📦 المنتج: ${req.body.product}\n\n🔗 تواصل مع الزبون فوراً:\n${whatsappLink}`;
-
-        fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`);
+        // --- كود إشعار التلغرام الجديد ---
+        const botToken = "8157330507:AAEWuYgdc0DwzeQjK-sLQiSPSd5zR64jotA";
+        const chatId = "1930480017";
+        const cleanPhone = req.body.phone.startsWith('0') ? '962' + req.body.phone.substring(1) : req.body.phone;
+        const whatsappLink = `https://wa.me/${cleanPhone}?text=${encodeURIComponent('أهلاً بك في لوميير LUMIERE، استلمنا طلبك لعطر.. متى يناسبك التوصيل؟')}`;
 
         const message = `🔔 طلب جديد لـ LUMIERE!\n\n👤 الاسم: ${req.body.name}\n📞 الهاتف: ${req.body.phone}\n📦 المنتج: ${req.body.product}\n\n🔗 تواصل مع الزبون فوراً:\n${whatsappLink}`;
 
@@ -53,10 +57,10 @@ app.post("/order", async (req, res) => {
         // ---------------------------------
 
         res.status(200).json({ message: "تم تسجيل طلبك بنجاح! سيتواصل معك فريق لوميير قريباً" });
-  } catch (err) {
-    res.status(500).json({ message: "فشل تسجيل الطلب، حاول مرة أخرى." });
-  }
-});
+    } catch (err) {
+        res.status(500).json({ message: "فشل تسجيل الطلب، حاول مرة أخرى" });
+    }
+});;
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log("Server running on port " + PORT));
