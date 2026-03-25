@@ -40,7 +40,11 @@ app.post("/order", async (req, res) => {
         // --- كود إشعار التلغرام الجديد ---
         const botToken = "8157330507:AAEWuYgdc0DwzeQjK-sLQiSPSd5zR64jotA"; 
         const chatId = "1930480017";
-        const message = `🔔 طلب جديد لـ LUMIERE!\n👤 الاسم: ${req.body.name}\n📞 الهاتف: ${req.body.phone}\n📦 المنتج: ${req.body.product}`;
+        // تجهيز رابط واتساب الزبون (بضيف 962 للأرقام الأردنية)
+        const cleanPhone = req.body.phone.startsWith('0') ? '962' + req.body.phone.substring(1) : req.body.phone;
+        const whatsappLink = `https://wa.me/${cleanPhone}?text=${encodeURIComponent('أهلاً بك في لوميير LUMIERE، استلمنا طلبك لعطر Pacific Chill.. متى يناسبك التوصيل؟')}`;
+
+        const message = `🔔 طلب جديد لـ LUMIERE!\n\n👤 الاسم: ${req.body.name}\n📞 الهاتف: ${req.body.phone}\n📦 المنتج: ${req.body.product}\n\n🔗 تواصل مع الزبون فوراً:\n${whatsappLink}`;
 
         fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`);
         // ---------------------------------
