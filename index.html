@@ -6,140 +6,24 @@
     <title>LUMIERE | لوميير للعطور</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --gold: #d4af37;
-            --black: #0a0a0a;
-            --dark-grey: #1a1a1a;
-            --white: #ffffff;
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        body {
-            font-family: 'Cairo', sans-serif;
-            background-color: var(--black);
-            color: var(--white);
-            margin: 0;
-            direction: rtl;
-            overflow-x: hidden;
-        }
-
-        nav {
-            background: linear-gradient(to bottom, #1a1a1a, #0a0a0a);
-            padding: 30px;
-            text-align: center;
-            font-size: 2.5rem;
-            font-weight: bold;
-            letter-spacing: 5px;
-            color: var(--gold);
-            border-bottom: 1px solid var(--gold);
-            text-transform: uppercase;
-            animation: fadeInUp 0.8s ease-out;
-        }
-
-        .hero {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 40px;
-            justify-content: center;
-            padding: 60px 20px;
-        }
-
-        .product-card {
-            background: var(--dark-grey);
-            width: 350px;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
-            border: 1px solid #333;
-            transition: 0.4s;
-            animation: fadeInUp 1.2s ease-out forwards;
-        }
-
-        .product-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--gold);
-            box-shadow: 0 0 25px rgba(212, 175, 55, 0.3);
-        }
-
-        .product-card img {
-            width: 100%;
-            height: 350px;
-            object-fit: cover;
-            transition: 0.5s;
-        }
-
-        .content {
-            padding: 30px;
-            text-align: center;
-        }
-
-        h2 {
-            color: var(--gold);
-            margin: 0;
-            font-size: 1.8rem;
-            letter-spacing: 1px;
-        }
-
-        .price {
-            font-size: 1.5rem;
-            color: var(--white);
-            margin: 15px 0;
-            font-weight: bold;
-        }
-
-        .description {
-            font-size: 1rem;
-            color: #ccc;
-            line-height: 1.7;
-            margin-bottom: 30px;
-        }
-
-        input {
-            width: 100%;
-            padding: 14px;
-            margin-bottom: 15px;
-            background: #252525;
-            border: 1px solid #444;
-            border-radius: 10px;
-            color: white;
-            text-align: center;
-            font-size: 1rem;
-        }
-
-        input:focus {
-            border-color: var(--gold);
-            outline: none;
-        }
-
-        button {
-            width: 100%;
-            padding: 16px;
-            background: var(--gold);
-            color: black;
-            border: none;
-            border-radius: 10px;
-            font-weight: bold;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        button:hover {
-            background: #b8962d;
-            transform: scale(1.02);
-        }
-
-        footer {
-            text-align: center;
-            padding: 40px;
-            color: #666;
-            font-size: 0.9rem;
-            border-top: 1px solid #222;
-        }
+        :root { --gold: #d4af37; --black: #0a0a0a; --dark-grey: #1a1a1a; --white: #ffffff; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        body { font-family: 'Cairo', sans-serif; background-color: var(--black); color: var(--white); margin: 0; direction: rtl; overflow-x: hidden; }
+        nav { background: linear-gradient(to bottom, #1a1a1a, #0a0a0a); padding: 30px; text-align: center; font-size: 2.5rem; font-weight: bold; letter-spacing: 5px; color: var(--gold); border-bottom: 1px solid var(--gold); animation: fadeInUp 0.8s ease-out; }
+        .hero { display: flex; flex-wrap: wrap; gap: 40px; justify-content: center; padding: 60px 20px; }
+        .product-card { background: var(--dark-grey); width: 350px; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.8); border: 1px solid #333; transition: 0.4s; animation: fadeInUp 1.2s ease-out forwards; }
+        .product-card.custom-maker { border: 2px solid var(--gold); background: linear-gradient(145deg, #1a1a1a, #2a2a2a); }
+        .product-card:hover { transform: translateY(-10px); border-color: var(--gold); box-shadow: 0 0 25px rgba(212, 175, 55, 0.3); }
+        .product-card img { width: 100%; height: 350px; object-fit: cover; }
+        .content { padding: 30px; text-align: center; }
+        h2 { color: var(--gold); margin: 0; font-size: 1.8rem; }
+        .price { font-size: 1.5rem; color: var(--white); margin: 15px 0; font-weight: bold; }
+        input, select, textarea { width: 100%; padding: 14px; margin-bottom: 15px; background: #252525; border: 1px solid #444; border-radius: 10px; color: white; text-align: center; font-family: 'Cairo'; }
+        button { width: 100%; padding: 16px; background: var(--gold); color: black; border: none; border-radius: 10px; font-weight: bold; font-size: 1.2rem; cursor: pointer; transition: 0.3s; }
+        button:hover { background: #b8962d; transform: scale(1.02); }
+        /* Modal Style */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); overflow-y: auto; }
+        .modal-content { background: var(--dark-grey); margin: 5% auto; padding: 30px; border: 1px solid var(--gold); width: 90%; max-width: 500px; border-radius: 20px; animation: fadeInUp 0.5s; }
     </style>
 </head>
 <body>
@@ -148,70 +32,88 @@
 
     <div class="hero">
         <div class="product-card">
-            <img src="public/perfume1.jpg" alt="LV Pacific Chill">
+            <img src="public/perfume1.jpg" alt="Pacific Chill">
             <div class="content">
                 <h2>LV Pacific Chill</h2>
-                <p class="price">13 دينار أردني - 100 مل</p>
-                <p class="description">
-                    انتعاش لا يُقاوم يجمع بين الطبيعة الخلابة والبحر. <br>
-                    <b>مكوناته:</b> الليمون، الريحان، البرتقال، والنعناع.
-                </p>
-                <input type="text" id="name1" placeholder="تعبئة الاسم">
-                <input type="text" id="phone1" placeholder="رقم الهاتف (واتساب)">
+                <p class="price">13 دينار - 100 مل</p>
+                <input type="text" id="name1" placeholder="الاسم">
+                <input type="text" id="phone1" placeholder="رقم الهاتف">
                 <button onclick="orderNow('LV Pacific Chill', 'name1', 'phone1')">اطلب الآن 🔥</button>
             </div>
         </div>
 
-        <div class="product-card" style="animation-delay: 0.2s;">
-            <img src="public/perfume2.jpg" alt="LV Imagination">
+        <div class="product-card">
+            <img src="public/perfume2.jpg" alt="Imagination">
             <div class="content">
                 <h2>LV Imagination</h2>
-                <p class="price">13 دينار أردني - 100 مل</p>
-                <p class="description">
-                    فخامة الخيال، عطر رجالي بلمسة ساحرة تعزز الثقة. <br>
-                    <b>مكوناته:</b> البرتقال، الزنجبيل، القرفة، والبرغموت.
-                </p>
-                <input type="text" id="name2" placeholder="تعبئة الاسم">
-                <input type="text" id="phone2" placeholder="رقم الهاتف (واتساب)">
+                <p class="price">13 دينار - 100 مل</p>
+                <input type="text" id="name2" placeholder="الاسم">
+                <input type="text" id="phone2" placeholder="رقم الهاتف">
                 <button onclick="orderNow('LV Imagination', 'name2', 'phone2')">اطلب الآن 🔥</button>
+            </div>
+        </div>
+
+        <div class="product-card custom-maker">
+            <div style="height: 350px; display: flex; align-items: center; justify-content: center; background: #000; color: var(--gold); font-size: 5rem;">🧪</div>
+            <div class="content">
+                <h2>صمم عطرك الخاص</h2>
+                <p style="color: #ccc;">اكتشف الرائحة التي تشبهك تماماً</p>
+                <button onclick="document.getElementById('quizModal').style.display='block'">ابدأ التجربة 🧪✨</button>
             </div>
         </div>
     </div>
 
-    <footer>
-        &copy; 2026 LUMIERE BRAND. جميع الحقوق محفوظة.
-    </footer>
+    <div id="quizModal" class="modal">
+        <div class="modal-content">
+            <h2 style="margin-bottom: 20px;">مستشار لوميير الذكي</h2>
+            <input type="text" id="q_name" placeholder="اسمك الكريم">
+            <input type="text" id="q_phone" placeholder="رقم واتساب">
+            <select id="q_time">
+                <option value="">متى تحب استخدام العطر؟</option>
+                <option value="صباحي">صباحي منعش ☀️</option>
+                <option value="مسائي">مسائي فخم 🌙</option>
+            </select>
+            <select id="q_style">
+                <option value="">ستايلك المفضل؟</option>
+                <option value="رسمي">رسمي وجاد 👔</option>
+                <option value="كاجوال">كاجوال وعفوي 👟</option>
+            </select>
+            <textarea id="q_notes" style="width:94%; height:80px; background:#252525; color:white; border-radius:10px; padding:10px; border:1px solid #444;" placeholder="روائح تحبها (عود، مسك، فواكه...)"></textarea>
+            <button onclick="sendQuiz()">أرسل ذوقي لـ لوميير 🚀</button>
+            <button onclick="document.getElementById('quizModal').style.display='none'" style="background:none; color:grey; font-size: 0.9rem; margin-top:10px;">إغلاق</button>
+        </div>
+    </div>
 
     <script>
         async function orderNow(productName, nameId, phoneId) {
-            const nameInput = document.getElementById(nameId).value;
-            const phoneInput = document.getElementById(phoneId).value;
+            const name = document.getElementById(nameId).value;
+            const phone = document.getElementById(phoneId).value;
+            if(!name || !phone) return alert("عبي البيانات يا غالي");
+            sendToServer({ name, phone, product: productName });
+        }
 
-            if(!nameInput || !phoneInput) {
-                return alert("يا ريت تعبي الاسم ورقم التلفون عشان نتواصل معك لخدمتك");
-            }
+        async function sendQuiz() {
+            const name = document.getElementById('q_name').value;
+            const phone = document.getElementById('q_phone').value;
+            const time = document.getElementById('q_time').value;
+            const style = document.getElementById('q_style').value;
+            const notes = document.getElementById('q_notes').value;
+            if(!name || !phone) return alert("الاسم والرقم ضروريين لنتواصل معك");
+            
+            const fullDetails = `تصميم خاص: [الوقت: ${time}] [الستايل: ${style}] [ملاحظات: ${notes}]`;
+            sendToServer({ name, phone, product: fullDetails });
+            document.getElementById('quizModal').style.display='none';
+        }
 
-            const customerData = {
-                name: nameInput,
-                phone: phoneInput,
-                product: productName
-            };
-
+        async function sendToServer(data) {
             try {
                 const res = await fetch('/order', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify(customerData)
+                    body: JSON.stringify(data)
                 });
-
-                if(res.ok) {
-                    alert(`تم استلام طلبك لـ ${productName} بنجاح! ✅ سنتواصل معك قريباً.`);
-                } else {
-                    alert("حدث خطأ بسيط في إرسال الطلب، حاول مرة ثانية.");
-                }
-            } catch (error) {
-                alert("السيرفر لا يستجيب حالياً، تأكد من اتصالك.");
-            }
+                if(res.ok) alert("تم استلام ذوقك الرفيع! سيتواصل معك خبير لوميير قريباً ✅");
+            } catch (e) { alert("حدث خطأ بسيط، حاول ثانية"); }
         }
     </script>
 </body>
