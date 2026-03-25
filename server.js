@@ -1,14 +1,16 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 
 const app = express();
 app.use(bodyParser.json());
 app.use(express.static('public'));
-mongoose.connect("mongodb://127.0.0.1:27017/lumiere")
-  .then(() => console.log("Connected to MongoDB! ✅"))
+
+// استبدل كلمة (كلمة_سرك_هنا) بكلمة السر الحقيقية تبعتك
+const dbURI = "mongodb+srv://luai_abusaif:jood_2012_0790079771@cluster0.elkekk0.mongodb.net/lumiere?retryWrites=true&w=majority&appName=Cluster0";
+
+mongoose.connect(dbURI)
+  .then(() => console.log("Connected to MongoDB Atlas! ✅"))
   .catch(err => console.error("MongoDB Connection Error: ❌", err));
 
 // موديل المنتجات
@@ -25,57 +27,19 @@ const Order = mongoose.model("Order", {
   phone: String,
   address: String,
   product: String,
+  date: { type: Date, default: Date.now }
 });
 
-// أدمن (ثابت إلك)
-const ADMIN = {
-  username: "admin",
-  password: "$2b$10$yourhashedpassword"
-};
-
-// تسجيل الدخول
-app.post("/login", async (req, res) => {
-  const { username, password } = req.body;
-
-  if (username !== ADMIN.username) return res.send("رفض");
-
-  const valid = await bcrypt.compare(password, ADMIN.password);
-  if (!valid) return res.send("رفض");
-
-  const token = jwt.sign({ admin: true }, "secret123");
-  res.json({ token });
-});
-
-// إضافة منتج
-app.post("/add-product", async (req, res) => {
-  const product = new Product(req.body);
-  await product.save();
-  res.send("تم");
-});
-
-// عرض المنتجات
-app.get("/products", async (req, res) => {
-  const products = await Product.find();
-  res.json(products);
-});
-
-// طلب
+// API لاستقبال الطلبات
 app.post("/order", async (req, res) => {
-  const order = new Order(req.body);
-  await order.save();
-  res.send("تم الطلب");
+  try {
+    const newOrder = new Order(req.body);
+    await newOrder.save();
+    res.status(200).json({ message: "تم تسجيل طلبك بنجاح! سيتواصل معك فريق لوميير قريباً." });
+  } catch (err) {
+    res.status(500).json({ message: "فشل تسجيل الطلب، حاول مرة أخرى." });
+  }
 });
 
-// عرض الطلبات (إلك)
-app.get("/orders", async (req, res) => {
-  const orders = await Order.find();
-  res.json(orders);
-});
-app.get("/add-test", (req, res) => {
-    console.log("Test route hit! 🔥");
-    res.send("Server is working perfectly!");
-});
-app.get("/", (req, res) => {
-    res.sendFile(__dirname + "/index.html");
-});
-app.listen(3000, () => console.log("Server running"));
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log("Server running on port " + PORT));
