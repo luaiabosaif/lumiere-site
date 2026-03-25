@@ -35,7 +35,17 @@ app.post("/order", async (req, res) => {
   try {
     const newOrder = new Order(req.body);
     await newOrder.save();
-    res.status(200).json({ message: "تم تسجيل طلبك بنجاح! سيتواصل معك فريق لوميير قريباً." });
+   await newOrder.save();
+
+        // --- كود إشعار التلغرام الجديد ---
+        const botToken = "8157330507:AAEWuYgdc0DwzeQjK-sLQiSPSd5zR64jotA"; 
+        const chatId = "1930480017";
+        const message = `🔔 طلب جديد لـ LUMIERE!\n👤 الاسم: ${req.body.name}\n📞 الهاتف: ${req.body.phone}\n📦 المنتج: ${req.body.product}`;
+
+        fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`);
+        // ---------------------------------
+
+        res.status(200).json({ message: "تم تسجيل طلبك بنجاح! سيتواصل معك فريق لوميير قريباً" });
   } catch (err) {
     res.status(500).json({ message: "فشل تسجيل الطلب، حاول مرة أخرى." });
   }
