@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 
 const app = express();
 app.use(bodyParser.json());
-app.use(express.static('public'));
+app.use(express.static(__dirname));
 
 // استبدل كلمة (كلمة_سرك_هنا) بكلمة السر الحقيقية تبعتك
 const dbURI = "mongodb+srv://luai_abusaif:jood_2012_0790079771@cluster0.elkekk0.mongodb.net/lumiere?retryWrites=true&w=majority&appName=Cluster0";
