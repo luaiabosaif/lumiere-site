@@ -32,15 +32,6 @@ const Order = mongoose.model("Order", {
 
 // API لاستقبال الطلبات
 app.post("/order", async (req, res) => {
-  try {
-    const newOrder = new Order(req.body);
-    await newOrder.save();
-   await newOrder.save();
-
-        // --- كود إشعار التلغرام الجديد ---
-        const botToken = "8157330507:AAEWuYgdc0DwzeQjK-sLQiSPSd5zR64jotA"; 
-        const chatId = "1930480017";
-     app.post("/order", async (req, res) => {
     try {
         const newOrder = new Order(req.body);
         await newOrder.save();
