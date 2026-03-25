@@ -1,203 +1,218 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LUMIERE | LV Pacific Chill</title>
+    <title>LUMIERE | لوميير للعطور</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <style>
-     :root {
-    --gold: #d4af37;
-    --black: #0a0a0a;
-    --dark-grey: #1a1a1a;
-    --white: #ffffff;
-}
+        :root {
+            --gold: #d4af37;
+            --black: #0a0a0a;
+            --dark-grey: #1a1a1a;
+            --white: #ffffff;
+        }
 
-body {
-    font-family: 'Cairo', sans-serif;
-    background-color: var(--black);
-    color: var(--white);
-    margin: 0;
-    direction: rtl;
-}
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-nav {
-    background: linear-gradient(to bottom, #1a1a1a, #0a0a0a);
-    padding: 25px;
-    text-align: center;
-    font-size: 2.2rem;
-    font-weight: bold;
-    letter-spacing: 4px;
-    color: var(--gold);
-    border-bottom: 1px solid var(--gold);
-    text-transform: uppercase;
-}
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--black);
+            color: var(--white);
+            margin: 0;
+            direction: rtl;
+            overflow-x: hidden;
+        }
 
-.hero {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 30px;
-    justify-content: center;
-    padding: 60px 20px;
-}
+        nav {
+            background: linear-gradient(to bottom, #1a1a1a, #0a0a0a);
+            padding: 30px;
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            letter-spacing: 5px;
+            color: var(--gold);
+            border-bottom: 1px solid var(--gold);
+            text-transform: uppercase;
+            animation: fadeInUp 0.8s ease-out;
+        }
 
-.product-card {
-    background: var(--dark-grey);
-    width: 350px;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    border: 1px solid #333;
-    transition: 0.4s;
-}
+        .hero {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            justify-content: center;
+            padding: 60px 20px;
+        }
 
-.product-card:hover {
-    transform: translateY(-10px);
-    border-color: var(--gold);
-    box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
-}
+        .product-card {
+            background: var(--dark-grey);
+            width: 350px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+            border: 1px solid #333;
+            transition: 0.4s;
+            animation: fadeInUp 1.2s ease-out forwards;
+        }
 
-.product-card img {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-    filter: grayscale(20%);
-    transition: 0.4s;
-}
+        .product-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--gold);
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.3);
+        }
 
-.product-card:hover img {
-    filter: grayscale(0%);
-}
+        .product-card img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            transition: 0.5s;
+        }
 
-.content {
-    padding: 25px;
-    text-align: center;
-}
+        .content {
+            padding: 30px;
+            text-align: center;
+        }
 
-h2 {
-    color: var(--gold);
-    margin: 0;
-    font-size: 1.8rem;
-}
+        h2 {
+            color: var(--gold);
+            margin: 0;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+        }
 
-.price {
-    font-size: 1.4rem;
-    color: var(--white);
-    margin: 15px 0;
-    font-weight: bold;
-}
+        .price {
+            font-size: 1.5rem;
+            color: var(--white);
+            margin: 15px 0;
+            font-weight: bold;
+        }
 
-.description {
-    font-size: 0.95rem;
-    color: #bbb;
-    line-height: 1.6;
-    margin-bottom: 25px;
-}
+        .description {
+            font-size: 1rem;
+            color: #ccc;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
 
-input {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 15px;
-    background: #222;
-    border: 1px solid #444;
-    border-radius: 8px;
-    color: white;
-    text-align: center;
-}
+        input {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 15px;
+            background: #252525;
+            border: 1px solid #444;
+            border-radius: 10px;
+            color: white;
+            text-align: center;
+            font-size: 1rem;
+        }
 
-input:focus {
-    border-color: var(--gold);
-    outline: none;
-}
+        input:focus {
+            border-color: var(--gold);
+            outline: none;
+        }
 
-button {
-    width: 100%;
-    padding: 15px;
-    background: var(--gold);
-    color: black;
-    border: none;
-    border-radius: 8px;
-    font-weight: bold;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: 0.3s;
-}
+        button {
+            width: 100%;
+            padding: 16px;
+            background: var(--gold);
+            color: black;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
 
-button:hover {
-    background: #b8962d;
-    letter-spacing: 1px;
-}
+        button:hover {
+            background: #b8962d;
+            transform: scale(1.02);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid #222;
+        }
     </style>
 </head>
 <body>
 
-<nav>LUMIERE</nav>
+    <nav>LUMIERE</nav>
 
-<div class="hero" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; padding: 40px 20px;">
-    <div class="product-card">
-        <img src="public/perfume1.jpg" alt="LV Pacific Chill">
-        <div class="content">
-            <h2>LV Pacific Chill</h2>
-            <p class="price">13 دينار أردني - 100 مل</p>
-            <p class="description">
-                انتعاش لا يُقاوم يجمع بين الطبيعة الخلابة والبحر. <br>
-                <b>مكوناته:</b> الليمون، الريحان، البرتقال، والنعناع.
-            </p>
-            <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
-            <input type="text" id="name1" placeholder="تعبئة الاسم">
-            <input type="text" id="phone1" placeholder="رقم الهاتف (واتساب)">
-            <button onclick="orderNow('LV Pacific Chill', 'name1', 'phone1')">اطلب الآن 🔥</button>
+    <div class="hero">
+        <div class="product-card">
+            <img src="public/perfume1.jpg" alt="LV Pacific Chill">
+            <div class="content">
+                <h2>LV Pacific Chill</h2>
+                <p class="price">13 دينار أردني - 100 مل</p>
+                <p class="description">
+                    انتعاش لا يُقاوم يجمع بين الطبيعة الخلابة والبحر. <br>
+                    <b>مكوناته:</b> الليمون، الريحان، البرتقال، والنعناع.
+                </p>
+                <input type="text" id="name1" placeholder="تعبئة الاسم">
+                <input type="text" id="phone1" placeholder="رقم الهاتف (واتساب)">
+                <button onclick="orderNow('LV Pacific Chill', 'name1', 'phone1')">اطلب الآن 🔥</button>
+            </div>
+        </div>
+
+        <div class="product-card" style="animation-delay: 0.2s;">
+            <img src="public/perfume2.jpg" alt="LV Imagination">
+            <div class="content">
+                <h2>LV Imagination</h2>
+                <p class="price">13 دينار أردني - 100 مل</p>
+                <p class="description">
+                    فخامة الخيال، عطر رجالي بلمسة ساحرة تعزز الثقة. <br>
+                    <b>مكوناته:</b> البرتقال، الزنجبيل، القرفة، والبرغموت.
+                </p>
+                <input type="text" id="name2" placeholder="تعبئة الاسم">
+                <input type="text" id="phone2" placeholder="رقم الهاتف (واتساب)">
+                <button onclick="orderNow('LV Imagination', 'name2', 'phone2')">اطلب الآن 🔥</button>
+            </div>
         </div>
     </div>
 
-    <div class="product-card">
-        <img src="public/perfume2.jpg" alt="LV Imagination">
-        <div class="content">
-            <h2>LV Imagination</h2>
-            <p class="price">13 دينار أردني - 100 مل</p>
-            <p class="description">
-                فخامة الخيال، عطر رجالي بلمسة ساحرة تعزز الثقة. <br>
-                <b>مكوناته:</b> البرتقال، الزنجبيل، القرفة، والبرغموت.
-            </p>
-            <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
-            <input type="text" id="name2" placeholder="تعبئة الاسم">
-            <input type="text" id="phone2" placeholder="رقم الهاتف (واتساب)">
-            <button onclick="orderNow('LV Imagination', 'name2', 'phone2')">اطلب الآن 🔥</button>
-        </div>
-    </div>
-</div>
+    <footer>
+        &copy; 2026 LUMIERE BRAND. جميع الحقوق محفوظة.
+    </footer>
 
-<script>
-    async function orderNow(productName, nameId, phoneId) {
-        const nameInput = document.getElementById(nameId).value;
-        const phoneInput = document.getElementById(phoneId).value;
+    <script>
+        async function orderNow(productName, nameId, phoneId) {
+            const nameInput = document.getElementById(nameId).value;
+            const phoneInput = document.getElementById(phoneId).value;
 
-        if(!nameInput || !phoneInput) {
-            return alert("يا ريت تعبي الاسم ورقم التلفون عشان نتواصل معك لخدمتك");
-        }
-
-        const customerData = {
-            name: nameInput,
-            phone: phoneInput,
-            product: productName
-        };
-
-        try {
-            const res = await fetch('/order', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(customerData)
-            });
-
-            if(res.ok) {
-                alert(`تم استلام طلبك لـ ${productName} بنجاح! ✅ سنتواصل معك قريباً.`);
-            } else {
-                alert("حدث خطأ بسيط في إرسال الطلب، حاول مرة ثانية.");
+            if(!nameInput || !phoneInput) {
+                return alert("يا ريت تعبي الاسم ورقم التلفون عشان نتواصل معك لخدمتك");
             }
-        } catch (error) {
-            alert("السيرفر لا يستجيب حالياً، تأكد من اتصالك.");
-        }
-    }
-</script>
 
+            const customerData = {
+                name: nameInput,
+                phone: phoneInput,
+                product: productName
+            };
+
+            try {
+                const res = await fetch('/order', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(customerData)
+                });
+
+                if(res.ok) {
+                    alert(`تم استلام طلبك لـ ${productName} بنجاح! ✅ سنتواصل معك قريباً.`);
+                } else {
+                    alert("حدث خطأ بسيط في إرسال الطلب، حاول مرة ثانية.");
+                }
+            } catch (error) {
+                alert("السيرفر لا يستجيب حالياً، تأكد من اتصالك.");
+            }
+        }
+    </script>
 </body>
 </html>
