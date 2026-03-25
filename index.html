@@ -67,30 +67,44 @@
 
 <nav>LUMIERE</nav>
 
-<div class="hero">
+<div class="hero" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; padding: 40px 20px;">
     <div class="product-card">
         <img src="public/perfume1.jpg" alt="LV Pacific Chill">
         <div class="content">
             <h2>LV Pacific Chill</h2>
-            <p class="price">13 دينار أردني</p>
+            <p class="price">13 دينار أردني - 100 مل</p>
             <p class="description">
                 انتعاش لا يُقاوم يجمع بين الطبيعة الخلابة والبحر. <br>
                 <b>مكوناته:</b> الليمون، الريحان، البرتقال، والنعناع.
             </p>
-            
-            <hr style="margin: 25px 0; border: 0; border-top: 1px solid #eee;">
-            
-            <input type="text" id="name" placeholder="تعبئة الاسم">
-            <input type="text" id="phone" placeholder="رقم الهاتف (واتساب)">
-            <button onclick="orderNow()">اطلب الآن 🔥</button>
+            <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
+            <input type="text" id="name1" placeholder="تعبئة الاسم">
+            <input type="text" id="phone1" placeholder="رقم الهاتف (واتساب)">
+            <button onclick="orderNow('LV Pacific Chill', 'name1', 'phone1')">اطلب الآن 🔥</button>
+        </div>
+    </div>
+
+    <div class="product-card">
+        <img src="public/perfume2.jpg" alt="LV Imagination">
+        <div class="content">
+            <h2>LV Imagination</h2>
+            <p class="price">13 دينار أردني - 100 مل</p>
+            <p class="description">
+                فخامة الخيال، عطر رجالي بلمسة ساحرة تعزز الثقة. <br>
+                <b>مكوناته:</b> البرتقال، الزنجبيل، القرفة، والبرغموت.
+            </p>
+            <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
+            <input type="text" id="name2" placeholder="تعبئة الاسم">
+            <input type="text" id="phone2" placeholder="رقم الهاتف (واتساب)">
+            <button onclick="orderNow('LV Imagination', 'name2', 'phone2')">اطلب الآن 🔥</button>
         </div>
     </div>
 </div>
 
 <script>
-    async function orderNow() {
-        const nameInput = document.getElementById('name').value;
-        const phoneInput = document.getElementById('phone').value;
+    async function orderNow(productName, nameId, phoneId) {
+        const nameInput = document.getElementById(nameId).value;
+        const phoneInput = document.getElementById(phoneId).value;
 
         if(!nameInput || !phoneInput) {
             return alert("يا ريت تعبي الاسم ورقم التلفون عشان نتواصل معك لخدمتك");
@@ -99,7 +113,7 @@
         const customerData = {
             name: nameInput,
             phone: phoneInput,
-            product: "LV Pacific Chill"
+            product: productName
         };
 
         try {
@@ -110,12 +124,12 @@
             });
 
             if(res.ok) {
-                alert("تم استلام طلبك لـ LV Pacific Chill بنجاح! ✅ سنتواصل معك قريباً.");
+                alert(`تم استلام طلبك لـ ${productName} بنجاح! ✅ سنتواصل معك قريباً.`);
             } else {
                 alert("حدث خطأ بسيط في إرسال الطلب، حاول مرة ثانية.");
             }
         } catch (error) {
-            alert("السيرفر مو شغال حالياً، تأكد من تشغيله بـ node server.js.");
+            alert("السيرفر لا يستجيب حالياً، تأكد من اتصالك.");
         }
     }
 </script>
