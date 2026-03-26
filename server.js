@@ -27,7 +27,7 @@ const OrderSchema = new mongoose.Schema({
 const Order = mongoose.model("Order", OrderSchema);
 
 // استقبال الطلبات API
-app.post("/order", async (req, res) => {
+app.post("/api/order", async (req, res) => {
     try {
         const { name, phone, product } = req.body;
 
