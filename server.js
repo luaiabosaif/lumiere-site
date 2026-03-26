@@ -73,7 +73,7 @@ app.post("/api/order", async (req, res) => {
 ${whatsappLink}`;
 
         // 5. إرسال التنبيه للتلغرام
-        await fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(telegramMessage)}`);
+        await axios.get(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(telegramMessage)}`);
 
         res.status(200).json({ message: "تم تسجيل طلبك بنجاح! ✅" });
     } catch (err) {
