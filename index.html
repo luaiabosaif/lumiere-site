@@ -6,53 +6,73 @@
     <title>LUMIERE | لوميير للعطور</title>
     <style>
         :root { --gold: #d4af37; --dark: #0a0a0a; --gray: #1a1a1a; --white: #ffffff; }
-        body { background: var(--dark); color: var(--white); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
-        header { text-align: center; padding: 40px 20px; background: linear-gradient(to bottom, #151515, var(--dark)); border-bottom: 1px solid var(--gold); }
-        h1 { color: var(--gold); font-size: 2.5rem; letter-spacing: 4px; margin: 0; }
+        body { background: var(--dark); color: var(--white); font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; }
+        header { text-align: center; padding: 30px; border-bottom: 1px solid var(--gold); }
+        h1 { color: var(--gold); letter-spacing: 4px; margin: 0; }
         .container { max-width: 1200px; margin: auto; padding: 20px; }
-        .perfume-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px; }
-        .perfume-card { background: var(--gray); border-radius: 15px; padding: 20px; border: 1px solid #333; transition: 0.3s; position: relative; overflow: hidden; }
-        .perfume-card:hover { border-color: var(--gold); transform: translateY(-5px); }
-        .perfume-card img { width: 100%; border-radius: 10px; height: 350px; object-fit: cover; margin-bottom: 15px; }
-        .perfume-card h3 { color: var(--gold); margin: 10px 0; }
+        
+        /* بار النقاط المستفز للزبون عشان يشتري أكثر */
+        .points-card { background: var(--gray); padding: 20px; border-radius: 15px; border: 1px solid var(--gold); text-align: center; margin-bottom: 30px; }
+        .progress-bar { background: #333; height: 20px; border-radius: 10px; margin: 15px 0; overflow: hidden; border: 1px solid #444; }
+        .progress-fill { background: var(--gold); height: 100%; width: 0%; transition: 1s; }
+        
+        .perfume-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+        .perfume-card { background: var(--gray); border-radius: 15px; padding: 20px; border: 1px solid #333; position: relative; }
+        .perfume-card img { width: 100%; border-radius: 10px; height: 350px; object-fit: cover; }
         .notes { display: flex; flex-wrap: wrap; gap: 8px; margin: 15px 0; }
         .notes span { background: #000; padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; border: 1px solid var(--gold); color: var(--gold); }
-        .price { font-size: 1.4rem; color: var(--gold); font-weight: bold; margin: 15px 0; }
-        .order-stats { font-size: 0.85rem; color: #888; margin-bottom: 15px; }
-        input { width: 100%; padding: 12px; margin-bottom: 10px; background: #000; border: 1px solid #444; color: #fff; border-radius: 8px; box-sizing: border-box; outline: none; }
-        input:focus { border-color: var(--gold); }
-        button { width: 100%; padding: 15px; background: var(--gold); border: none; color: #000; font-weight: bold; cursor: pointer; border-radius: 8px; transition: 0.3s; font-size: 1rem; }
-        button:hover { background: #b8962d; }
-        footer { text-align: center; padding: 40px; color: #666; font-size: 0.9rem; }
+        .price { font-size: 1.4rem; color: var(--gold); font-weight: bold; margin-bottom: 10px; }
+        
+        input { width: 100%; padding: 12px; margin-top: 10px; background: #000; border: 1px solid #444; color: #fff; border-radius: 8px; box-sizing: border-box; }
+        button { width: 100%; padding: 15px; background: var(--gold); border: none; color: #000; font-weight: bold; cursor: pointer; border-radius: 8px; margin-top: 10px; }
+        
+        .quiz-btn-main { background: var(--gray); color: var(--gold); border: 1px solid var(--gold); padding: 15px; width: 100%; border-radius: 15px; margin-bottom: 20px; cursor: pointer; }
     </style>
 </head>
 <body>
 
 <header>
     <h1>LUMIERE</h1>
-    <p style="color: #888; letter-spacing: 2px;">LUXURY FRAGRANCE</p>
 </header>
 
 <div class="container">
+    <div class="points-card">
+        <h3 id="pointsText">نقاطك الحالية: 0 نقطة</h3>
+        <p style="font-size: 0.9rem; color: #ccc;">جمع 650 نقطة واحصل على عطر 55 مل مجاناً! 🎁</p>
+        <div class="progress-bar"><div id="progressFill" class="progress-fill"></div></div>
+        <p id="pointsGoal" style="font-size: 0.8rem; color: var(--gold);">باقي لك 650 نقطة على الهدية</p>
+    </div>
+
+    <button class="quiz-btn-main" onclick="alert('قريباً: دليل اختيار العطر الذكي!')">✨ نساعدك باختيار عطرك؟</button>
+
     <div id="perfumeGrid" class="perfume-grid"></div>
 </div>
 
-<footer>
-    &copy; 2026 LUMIERE | LUXURY FRAGRANCE
-</footer>
-
 <script>
     const perfumes = [
-        { name: "LV Imagination 100ML", price: "13", img: "perfume1.jpg", desc: "إبداع من الحمضيات والشاي الصيني.", notes: ["🍋 ليمون", "🌿 شاي", "🪵 خشب"] },
-        { name: "LV Pacific Chill 100ML", price: "13", img: "perfume2.jpg", desc: "انتعاش المحيط بلسمة الكشمش الأسود.", notes: ["🍊 برتقال", "🍃 نعناع", "🧊 انتعاش"] },
-        { name: "TERRE DHERMES 110ML", price: "14", img: "perfume3.jpg", desc: "عطر يتميز بتركيبته الخشبية والتوابل.", notes: ["✨ خشب", "🌹 أزهار", "🪵 عود"] },
-        { name: "DE MARLY PEGASUS 110ML", price: "14", img: "perfume4.jpg", desc: "عطر يجمع الأناقة الكلاسيكية بالرائحة الدافئة.", notes: ["🌰 عنبر", "🪵 خشب الأرز", "✨ الورد"] },
-        { name: "GISSAH IMPEREAL 110ML", price: "14", img: "perfume5.jpg", desc: "إشراقة صباحية مفعمة بالحيوية.", notes: ["🍏 فواكه", "🌸 زهور", "🍋 حمضيات"] },
-        { name: "FRANKEL AVENTUS ASSAF 110ML", price: "14", img: "perfume6.jpg", desc: "البصمة الخاصة لبراند لوميير.", notes: ["🔱 خاص", "🪵 ليمون", "🍋 العنبر الرسمي"] }
+        { name: "LV Imagination 100ML", price: "13", img: "perfume1.jpg", notes: ["🍋 ليمون", "🌿 شاي", "🪵 خشب"] },
+        { name: "LV Pacific Chill 100ML", price: "13", img: "perfume2.jpg", notes: ["🍊 برتقال", "🍃 نعناع", "🧊 انتعاش"] },
+        { name: "TERRE DHERMES 110ML", price: "14", img: "perfume3.jpg", notes: ["✨ خشب", "🌹 أزهار", "🪵 عود"] },
+        { name: "DE MARLY PEGASUS 110ML", price: "14", img: "perfume4.jpg", notes: ["🌰 عنبر", "🪵 خشب الأرز", "✨ الورد"] },
+        { name: "GISSAH IMPEREAL 110ML", price: "14", img: "perfume5.jpg", notes: ["🍏 فواكه", "🌸 زهور", "🍋 حمضيات"] },
+        { name: "FRANKEL AVENTUS ASSAF 110ML", price: "14", img: "perfume6.jpg", notes: ["🔱 خاص", "🪵 ليمون", "🍋 العنبر"] }
     ];
 
     const TELEGRAM_BOT_TOKEN = '8157330507:AAEWuYgdc0DwzeQjK-sLQiSPSd5zR64jotA';
     const TELEGRAM_CHAT_ID = '1930480017';
+
+    // تحديث واجهة النقاط
+    function updatePointsUI() {
+        let currentPoints = parseInt(localStorage.getItem('lumiere_points')) || 0;
+        document.getElementById('pointsText').innerText = `نقاطك الحالية: ${currentPoints} نقطة`;
+        
+        let percent = (currentPoints / 650) * 100;
+        if(percent > 100) percent = 100;
+        document.getElementById('progressFill').style.width = percent + '%';
+        
+        let remaining = 650 - currentPoints;
+        document.getElementById('pointsGoal').innerText = remaining > 0 ? `باقي لك ${remaining} نقطة على الهدية` : "مبروك! استحقيت العطر المجاني 🎁";
+    }
 
     function displayPerfumes() {
         const grid = document.getElementById('perfumeGrid');
@@ -60,14 +80,11 @@
             <div class="perfume-card">
                 <img src="${p.img}" alt="${p.name}">
                 <h3>${p.name}</h3>
-                <p style="font-size: 0.9rem; color: #ccc;">${p.desc}</p>
-                <div class="notes">
-                    ${p.notes.map(n => `<span>${n}</span>`).join('')}
-                </div>
+                <div class="notes">${p.notes.map(n => `<span>${n}</span>`).join('')}</div>
                 <div class="price">${p.price} دينار</div>
-                <div class="order-stats">🔥 طلب ${Math.floor(Math.random() * 5) + 1} اليوم</div>
-                <input type="text" id="name-${index}" placeholder="اسمك الكريم">
-                <input type="tel" id="phone-${index}" placeholder="رقم الهاتف">
+                <p style="color:var(--gold); font-size:0.8rem;">+130 نقطة عند الشراء</p>
+                <input type="text" id="name-${index}" placeholder="الاسم الكريم">
+                <input type="tel" id="phone-${index}" placeholder="رقم الموبايل">
                 <button onclick="orderNow('${p.name}', 'name-${index}', 'phone-${index}')">اطلب الآن</button>
             </div>
         `).join('');
@@ -75,33 +92,28 @@
 
     async function orderNow(pName, nId, pId) {
         const name = document.getElementById(nId).value;
-        let phone = document.getElementById(pId).value;
+        const phone = document.getElementById(pId).value;
+        if(!name || !phone) return alert("يا غالي عبي بياناتك 🌹");
 
-        if(!name || !phone) return alert("يا غالي، عبي الاسم والرقم 🌹");
+        // إضافة النقاط عند الطلب
+        let points = parseInt(localStorage.getItem('lumiere_points')) || 0;
+        points += 130;
+        localStorage.setItem('lumiere_points', points);
+        updatePointsUI();
 
-        // تنظيف رقم الهاتف ليعمل مع رابط واتساب
+        // تجهيز رابط الواتساب
         let cleanPhone = phone.replace(/\D/g, ''); 
         if(cleanPhone.startsWith('0')) cleanPhone = '962' + cleanPhone.substring(1);
-        if(!cleanPhone.startsWith('962')) cleanPhone = '962' + cleanPhone;
+        const waLink = `https://wa.me/${cleanPhone}?text=${encodeURIComponent('أهلاً ' + name + '، سجلت طلبك لعطر ' + pName + ' ونقاطك صارت ' + points)}`;
 
-        const waText = `أهلاً يا ${name}، وصلني طلبك لعطر ${pName} من لوميير.. كيف بقدر أخدمك؟`;
-        const waLink = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(waText)}`;
+        const message = `🚨 طلب جديد: \n👤 الزبون: ${name}\n📞 الرقم: ${phone}\n🧴 العطر: ${pName}\n⭐ نقاطه الحالية: ${points}\n\n🔗 تواصل واتساب:\n${waLink}`;
 
-        const message = `🚨 طلب جديد من LUMIERE! \n\n👤 الزبون: ${name} \n📞 الرقم: ${phone} \n🧴 العطر: ${pName} \n\n🔗 تواصل مع العميل فوراً: \n${waLink}`;
-
-        const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${encodeURIComponent(message)}`;
-
-        try {
-            await fetch(url);
-            alert("تم استلام طلبك لـ " + pName + " بنجاح ✅.. رح نتواصل معك!");
-            document.getElementById(nId).value = "";
-            document.getElementById(pId).value = "";
-        } catch (error) {
-            alert("مشكلة في الشبكة، جرب مرة ثانية");
-        }
+        await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${encodeURIComponent(message)}`);
+        
+        alert(`تم استلام طلبك! ✅\nمبروك، ربحت 130 نقطة. مجموعك الآن: ${points}`);
     }
 
-    window.onload = displayPerfumes;
+    window.onload = () => { displayPerfumes(); updatePointsUI(); };
 </script>
 </body>
 </html>
