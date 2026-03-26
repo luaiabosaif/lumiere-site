@@ -88,27 +88,29 @@
 
     <script>
         // دالة العداد الذكي
-       function updateCounters() {
+      function updateCounters() {
     const counters = document.querySelectorAll('.count-number');
-    let baseCount = 14; 
     
-    // التغيير بصير كل 20 دقيقة (1200000 ميلي ثانية)
-    setInterval(() => {
-        const isIncreasing = Math.random() > 0.2; // احتمالية زيادة كبيرة
-        
-        if (isIncreasing) {
-            baseCount += 1;
-        } else {
-            baseCount -= 1;
-        }
+    // بنعطي كل عطر رقم بداية مختلف عشان المصداقية
+    let counts = [14, 19]; // 14 للأول و 19 للثاني مثلاً
 
-        if (baseCount < 12) baseCount = 12;
-        if (baseCount > 24) baseCount = 24;
-        
-        counters.forEach(el => {
-            el.innerText = baseCount;
+    setInterval(() => {
+        counters.forEach((el, index) => {
+            const isIncreasing = Math.random() > 0.3;
+            
+            if (isIncreasing) {
+                counts[index] += 1;
+            } else {
+                counts[index] -= 1;
+            }
+
+            // حدود كل عطر (عشان يضلوا بين الـ 12 والـ 26)
+            if (counts[index] < 12) counts[index] = 12;
+            if (counts[index] > 26) counts[index] = 26;
+            
+            el.innerText = counts[index];
         });
-    }, 1200000); 
+    }, 1200000); // كل 20 دقيقة
 }
 
         window.onload = updateCounters;
