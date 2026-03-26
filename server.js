@@ -6,6 +6,9 @@ const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch
 const app = express();
 app.use(bodyParser.json());
 app.use(express.static(__dirname));
+app.get("/", (req, res) => {
+    res.sendFile(__dirname + "/index.html");
+});
 
 // الربط بقاعدة بيانات مانجو (LUMIERE Database)
 const mongoURI = "mongodb+srv://luai_abusaif:jood_2012_0790079771@cluster0.elkekk0.mongodb.net/lumiere?retryWrites=true&w=majority";
