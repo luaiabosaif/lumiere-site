@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+const axios = require("axios"); // غيرنا الـ fetch لـ axios
 
 const app = express();
 app.use(bodyParser.json());
