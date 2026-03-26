@@ -10,10 +10,8 @@ app.use(express.static("public"));
 // الربط بقاعدة بيانات مانجو (LUMIERE Database)
 const mongoURI = "mongodb+srv://luai_abusaif:jood_2012_0790079771@cluster0.elkekk0.mongodb.net/lumiere?retryWrites=true&w=majority";
 
-mongoose.connect(mongoURI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(() => console.log("Connected to MongoDB ✅"))
+mongoose.connect(mongoURI)
+  .then(() => console.log("Connected to MongoDB ✅"))
   .catch(err => console.error("MongoDB Connection Error ❌", err));
 
 // تعريف موديل الطلبات
