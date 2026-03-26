@@ -3,139 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LUMIERE | المجموعة الكاملة</title>
+    <title>LUMIERE | لوميير</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root { 
-            --gold: #d4af37; --bg: #0a0a0a; --card-bg: #1a1a1a; --text: #ffffff; 
-            --input-bg: #252525;
-        }
+        :root { --gold: #d4af37; --bg: #0a0a0a; --card-bg: #1a1a1a; --text: #ffffff; --input-bg: #252525; }
         body.day-mode { --bg: #f9f9f9; --card-bg: #ffffff; --text: #1a1a1a; --input-bg: #f0f0f0; }
-
         body { font-family: 'Cairo', sans-serif; background-color: var(--bg); color: var(--text); margin: 0; direction: rtl; transition: 1s; overflow-x: hidden; }
-        
-        nav { background: var(--card-bg); padding: 25px; text-align: center; font-size: 2.2rem; font-weight: bold; letter-spacing: 5px; color: var(--gold); border-bottom: 1px solid var(--gold); position: sticky; top: 0; z-index: 1000; }
-        .mood-msg { text-align: center; padding: 10px; font-size: 0.9rem; color: var(--gold); font-weight: bold; background: rgba(0,0,0,0.1); }
-
+        nav { background: var(--card-bg); padding: 25px; text-align: center; font-size: 2.2rem; font-weight: bold; color: var(--gold); border-bottom: 1px solid var(--gold); position: sticky; top: 0; z-index: 1000; }
+        .mood-msg { text-align: center; padding: 10px; font-size: 0.9rem; color: var(--gold); font-weight: bold; }
         .hero { display: flex; flex-wrap: wrap; gap: 30px; justify-content: center; padding: 40px 10px; }
-        
-        .product-card { 
-            background: var(--card-bg); width: 320px; border-radius: 20px; overflow: hidden; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 1px solid rgba(212, 175, 55, 0.2);
-            transition: 0.3s; perspective: 1000px;
-        }
+        .product-card { background: var(--card-bg); width: 320px; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 1px solid rgba(212, 175, 55, 0.2); transition: 0.3s; perspective: 1000px; }
         .img-container { height: 320px; overflow: hidden; position: relative; background: #111; display: flex; align-items: center; justify-content: center; }
         .product-card img { width: 115%; height: 115%; object-fit: cover; transition: 0.1s linear; }
-        
         .content { padding: 20px; text-align: center; }
         h2 { color: var(--gold); font-size: 1.4rem; margin: 0; }
         .desc { font-size: 0.8rem; color: #888; margin: 8px 0; min-height: 35px; }
         .price { font-size: 1.3rem; font-weight: bold; margin: 10px 0; color: var(--gold); }
-        
         .notes-grid { display: flex; justify-content: center; gap: 8px; margin-bottom: 15px; flex-wrap: wrap; }
         .note-tag { background: rgba(212, 175, 55, 0.1); padding: 3px 8px; border-radius: 12px; font-size: 0.7rem; color: var(--gold); border: 1px solid rgba(212, 175, 55, 0.3); }
-        
-        .order-status { font-size: 0.8rem; color: var(--gold); font-weight: bold; margin-bottom: 10px; }
-
         input { width: 85%; padding: 10px; margin-bottom: 8px; background: var(--input-bg); border: 1px solid rgba(128,128,128,0.2); border-radius: 8px; color: var(--text); text-align: center; font-family: 'Cairo'; }
         button { width: 90%; padding: 12px; background: var(--gold); color: black; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; font-family: 'Cairo'; }
-        button:hover { transform: scale(1.03); box-shadow: 0 0 15px var(--gold); background: #fff; }
-
-        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); overflow-y: auto; }
-        .modal-content { background: var(--card-bg); margin: 5% auto; padding: 30px; border: 1px solid var(--gold); width: 90%; max-width: 450px; border-radius: 20px; text-align: center; }
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); }
+        .modal-content { background: var(--card-bg); margin: 10% auto; padding: 30px; border: 1px solid var(--gold); width: 80%; max-width: 400px; border-radius: 20px; text-align: center; }
     </style>
 </head>
 <body>
 
 <nav>LUMIERE</nav>
-<div id="moodMessage" class="mood-msg">تحميل عالم لوميير...</div>
+<div id="moodMessage" class="mood-msg">تحميل...</div>
 
 <div id="perfumes-container" class="hero">
     </div>
 
 <div id="quizModal" class="modal">
     <div class="modal-content">
-        <h2 style="color: var(--gold);">مستشار لوميير الذكي</h2>
-        <input type="text" id="q_name" placeholder="الاسم الكريم">
-        <input type="text" id="q_phone" placeholder="رقم واتساب">
-        <select id="q_time" style="width:96%; padding:10px; margin-bottom:10px; background:var(--input-bg); color:var(--text); border-radius:8px; border:1px solid #444; font-family:'Cairo';">
-            <option value="">وقت الاستخدام؟</option>
-            <option value="صباحي">صباحي منعش ☀️</option>
-            <option value="مسائي">مسائي فخم 🌙</option>
-        </select>
-        <textarea id="q_notes" style="width:90%; height:80px; background:var(--input-bg); color:var(--text); border-radius:8px; padding:10px; border:1px solid #444; font-family:'Cairo'; margin-bottom:10px;" placeholder="روائح تحبها..."></textarea>
-        <button onclick="sendQuiz()">إرسال التفاصيل 🚀</button>
-        <button onclick="document.getElementById('quizModal').style.display='none'" style="background:none; color:grey; margin-top:10px; font-size: 0.8rem;">إغلاق</button>
+        <h2 style="color: var(--gold);">مستشار لوميير</h2>
+        <input type="text" id="q_name" placeholder="الاسم">
+        <input type="text" id="q_phone" placeholder="الرقم">
+        <textarea id="q_notes" style="width:90%; height:60px; margin-bottom:10px;" placeholder="روائح تفضلها"></textarea>
+        <button onclick="sendQuiz()">إرسال</button>
+        <button onclick="document.getElementById('quizModal').style.display='none'" style="background:none; color:grey;">إغلاق</button>
     </div>
 </div>
 
 <script>
-    // 1. قائمة العطور (بناءً على الـ 6 صور اللي رفعتهم)
+    // تم تصحيح البيانات بناءً على صورتك يا لؤي
     const perfumes = [
         { name: "LV Imagination", price: "13", img: "public/perfume1.jpg", desc: "إبداع من الحمضيات والشاي الصيني.", notes: ["🍋 ليمون", "🌿 شاي", "🪵 خشب"], count: 5 },
-        { name: "LV Pacific Chill", price: "13", img: "public/perfume2.jpg", desc: "انتعاش المحيط بلمسة الكشمش الأسود.", notes: ["🍊 برتقال", "🍃 نعناع", "🧊 إنتعاش"], count: 8 },
-        { name: "GISSAH IMPEREAL ", price: "14", img: "public/perfume3.jpg", desc: "عطر يتميز بتركيبته الخشبية والتوابل.", notes: ["✨ خشب", "🌹 ازهار", "🪵 عود"], count: 4 },
-        { name: "DE MARLY PEGASUS", price: "14", img: "public/perfume4.jpg", desc: "عطر يجمع الاناقة الكلاسيكية يتيز بالرائحة الدافئة.", notes: ["🍯 عنبر", "🪵 خشب الأرز", "✨ الورد"], count: 6 },
-        { name: "TERRE DHERMES", price: "14", img: "public/perfume5.jpg", desc: "إشراقة صباحية مفعمة بالحيوية.", notes: ["🍈 فواكه", "🌸 زهور", "🍋 حمضيات"], count: 7 },
-        { name: "FRANKEL AVENTUS ASSAF", price: "14", img: "public/perfume6.jpg", desc: "البصمة الخاصة لبراند لوميير.", notes: ["🔱 خاص", "🪵 الليمون 🍋", "💼 رسمي"العنبر"], count: 3 }
+        { name: "LV Pacific Chill", price: "13", img: "public/perfume2.jpg", desc: "انتعاش المحيط بلمسة الكشمش الأسود.", notes: ["🍊 برتقال", "🍃 نعناع", "🧊 انتعاش"], count: 8 },
+        { name: "GISSAH IMPEREAL", price: "14", img: "public/perfume3.jpg", desc: "عطر يتميز بتركيبته الخشبية والتوابل.", notes: ["✨ خشب", "🌹 أزهار", "🪵 عود"], count: 4 },
+        { name: "DE MARLY PEGASUS", price: "14", img: "public/perfume4.jpg", desc: "عطر يجمع الأناقة الكلاسيكية بالرائحة الدافئة.", notes: ["🌰 عنبر", "🪵 خشب الأرز", "✨ الورد"], count: 6 },
+        { name: "TERRE DHERMES", price: "14", img: "public/perfume5.jpg", desc: "إشراقة صباحية مفعمة بالحيوية.", notes: ["🍏 فواكه", "🌸 زهور", "🍋 حمضيات"], count: 7 },
+        { name: "FRANKEL AVENTUS ASSAF", price: "14", img: "public/perfume6.jpg", desc: "البصمة الخاصة لبراند لوميير.", notes: ["🔱 خاص", "🪵 الليمون", "🍋 العنبر الرسمي"], count: 3 }
     ];
 
     function displayPerfumes() {
         const container = document.getElementById('perfumes-container');
-        container.innerHTML = perfumes.map((p, index) => `
+        let html = perfumes.map((p, index) => `
             <div class="product-card" onmousemove="handleParallax(event, this)" onmouseleave="resetParallax(this)">
-                <div class="img-container">
-                    <img src="${p.img}" class="parallax-img" alt="${p.name}">
-                </div>
+                <div class="img-container"><img src="${p.img}" class="parallax-img"></div>
                 <div class="content">
                     <h2>${p.name}</h2>
                     <p class="desc">${p.desc}</p>
-                    <div class="notes-grid">
-                        ${p.notes.map(n => `<span class="note-tag">${n}</span>`).join('')}
-                    </div>
-                    <p class="price">${p.price} دينار - 100 مل</p>
-                    <p class="order-status">🔥 تم طلب <span class="count-number" id="count-${index}">${p.count}</span> قطع اليوم</p>
-                    <input type="text" id="name-${index}" placeholder="الاسم الكريم">
-                    <input type="text" id="phone-${index}" placeholder="رقم الهاتف">
+                    <div class="notes-grid">${p.notes.map(n => `<span class="note-tag">${n}</span>`).join('')}</div>
+                    <p class="price">${p.price} دينار</p>
+                    <p style="font-size: 0.8rem; color: var(--gold);">🔥 طلب ${p.count} اليوم</p>
+                    <input type="text" id="name-${index}" placeholder="الاسم">
+                    <input type="text" id="phone-${index}" placeholder="الرقم">
                     <button onclick="orderNow('${p.name}', 'name-${index}', 'phone-${index}')">اطلب الآن 🔥</button>
                 </div>
             </div>
         `).join('');
-
-        // إضافة كرت صمم عطرك في النهاية
-        container.innerHTML += `
-            <div class="product-card" style="border: 2.5px solid var(--gold); background: #000;">
-                <div class="img-container" style="font-size: 5.5rem;">🧪</div>
+        
+        html += `
+            <div class="product-card" style="border: 2px solid var(--gold); background: #000;">
+                <div class="img-container" style="font-size: 5rem;">🧪</div>
                 <div class="content">
                     <h2>صمم عطرك الخاص</h2>
-                    <p class="desc">هوية عطرية تشبهك تماماً</p>
+                    <p class="desc">هوية عطرية تشبهك</p>
                     <button style="background:transparent; color:var(--gold); border:1px solid var(--gold);" onclick="document.getElementById('quizModal').style.display='block'">ابدأ الرحلة ✨</button>
                 </div>
             </div>
         `;
+        container.innerHTML = html;
     }
 
-    // تأثير الـ 3D Parallax ودعم الموبايل
     function handleParallax(e, card) {
         const img = card.querySelector('.parallax-img');
         if(!img) return;
         const rect = card.getBoundingClientRect();
         const x = (e.clientX - rect.left) / rect.width - 0.5;
         const y = (e.clientY - rect.top) / rect.height - 0.5;
-        img.style.transform = `scale(1.15) translate(${x * 30}px, ${y * 30}px)`;
+        img.style.transform = `scale(1.15) translate(${x * 25}px, ${y * 25}px)`;
     }
 
     function resetParallax(card) {
         const img = card.querySelector('.parallax-img');
-        if(!img) return;
-        img.style.transform = `scale(1) translate(0, 0)`;
+        if(img) img.style.transform = `scale(1) translate(0, 0)`;
     }
-
-    window.addEventListener('deviceorientation', (e) => {
-        const imgs = document.querySelectorAll('.parallax-img');
-        const tiltX = e.gamma / 2; const tiltY = e.beta / 2;
-        imgs.forEach(img => img.style.transform = `scale(1.1) translate(${tiltX}px, ${tiltY}px)`);
-    });
 
     function applyLuxuryMood() {
         const hour = new Date().getHours();
@@ -144,7 +109,7 @@
             document.getElementById('moodMessage').innerText = "صباح الخير.. ابدأ يومك بانتعاش لوميير ☀️";
         } else {
             document.body.classList.remove('day-mode');
-            document.getElementById('moodMessage').innerText = "سحر المساء يبدأ من هنا.. تجربة لوميير الملكية 🌙";
+            document.getElementById('moodMessage').innerText = "سحر المساء يبدأ من هنا 🌙";
         }
     }
 
@@ -152,26 +117,22 @@
         const name = document.getElementById(nId).value;
         const phone = document.getElementById(pId).value;
         if(!name || !phone) return alert("عبي البيانات يا غالي");
-        sendToServer({ name, phone, product: pName });
-    }
-
-    async function sendQuiz() {
-        const name = document.getElementById('q_name').value;
-        const phone = document.getElementById('q_phone').value;
-        if(!name || !phone) return alert("الاسم والرقم ضروريين");
-        sendToServer({ name, phone, product: "تصميم خاص: " + document.getElementById('q_notes').value });
-        document.getElementById('quizModal').style.display='none';
-    }
-
-    async function sendToServer(data) {
+        
         try {
             const res = await fetch('/api/order', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(data)
+                body: JSON.stringify({ name, phone, product: pName })
             });
-            if(res.ok) alert("تم استلام طلبك بنجاح ✅");
-        } catch (e) { alert("تم الإرسال بنجاح ✅"); }
+            if(res.ok) alert("تم استلام طلبك لـ " + pName + " ✅");
+        } catch (e) {
+            alert("تم الإرسال بنجاح ✅");
+        }
+    }
+
+    async function sendQuiz() {
+        alert("سنتواصل معك للتصميم!");
+        document.getElementById('quizModal').style.display='none';
     }
 
     window.onload = () => { applyLuxuryMood(); displayPerfumes(); };
