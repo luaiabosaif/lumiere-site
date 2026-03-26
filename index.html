@@ -16,13 +16,13 @@
         .perfume-card img { width: 100%; border-radius: 10px; height: 350px; object-fit: cover; margin-bottom: 15px; }
         .perfume-card h3 { color: var(--gold); margin: 10px 0; }
         .notes { display: flex; flex-wrap: wrap; gap: 8px; margin: 15px 0; }
-        .notes span { background: #222; padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; border: 1px solid #444; }
+        .notes span { background: #000; padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; border: 1px solid var(--gold); color: var(--gold); }
         .price { font-size: 1.4rem; color: var(--gold); font-weight: bold; margin: 15px 0; }
         .order-stats { font-size: 0.85rem; color: #888; margin-bottom: 15px; }
-        input { width: 100%; padding: 12px; margin-bottom: 10px; background: #000; border: 1px solid #444; color: #fff; border-radius: 8px; box-sizing: border-box; }
-        button { width: 100%; padding: 12px; background: var(--gold); border: none; color: #000; font-weight: bold; cursor: pointer; border-radius: 8px; transition: 0.3s; }
+        input { width: 100%; padding: 12px; margin-bottom: 10px; background: #000; border: 1px solid #444; color: #fff; border-radius: 8px; box-sizing: border-box; outline: none; }
+        input:focus { border-color: var(--gold); }
+        button { width: 100%; padding: 15px; background: var(--gold); border: none; color: #000; font-weight: bold; cursor: pointer; border-radius: 8px; transition: 0.3s; font-size: 1rem; }
         button:hover { background: #b8962d; }
-        .whatsapp-btn { display: block; text-align: center; padding: 10px; margin-top: 10px; background: #25d366; color: white; text-decoration: none; border-radius: 8px; font-size: 0.9rem; font-weight: bold; }
         footer { text-align: center; padding: 40px; color: #666; font-size: 0.9rem; }
     </style>
 </head>
@@ -34,16 +34,14 @@
 </header>
 
 <div class="container">
-    <div id="perfumeGrid" class="perfume-grid">
-        </div>
+    <div id="perfumeGrid" class="perfume-grid"></div>
 </div>
 
 <footer>
-    &copy; 2026 LUMIERE BY LUAI. All Rights Reserved.
+    &copy; 2026 LUMIERE | LUXURY FRAGRANCE
 </footer>
 
 <script>
-    // بيانات العطور الـ 6 (الصور كما رفعتها)
     const perfumes = [
         { name: "LV Imagination 100ML", price: "13", img: "perfume1.jpg", desc: "إبداع من الحمضيات والشاي الصيني.", notes: ["🍋 ليمون", "🌿 شاي", "🪵 خشب"] },
         { name: "LV Pacific Chill 100ML", price: "13", img: "perfume2.jpg", desc: "انتعاش المحيط بلسمة الكشمش الأسود.", notes: ["🍊 برتقال", "🍃 نعناع", "🧊 انتعاش"] },
@@ -53,54 +51,57 @@
         { name: "FRANKEL AVENTUS ASSAF 110ML", price: "14", img: "perfume6.jpg", desc: "البصمة الخاصة لبراند لوميير.", notes: ["🔱 خاص", "🪵 ليمون", "🍋 العنبر الرسمي"] }
     ];
 
-    // بيانات تيلجرام الخاصة بك (مدمجة جاهزة)
     const TELEGRAM_BOT_TOKEN = '8157330507:AAEWuYgdc0DwzeQjK-sLQiSPSd5zR64jotA';
     const TELEGRAM_CHAT_ID = '1930480017';
 
-    // عرض العطور
     function displayPerfumes() {
         const grid = document.getElementById('perfumeGrid');
         grid.innerHTML = perfumes.map((p, index) => `
             <div class="perfume-card">
                 <img src="${p.img}" alt="${p.name}">
                 <h3>${p.name}</h3>
-                <p>${p.desc}</p>
+                <p style="font-size: 0.9rem; color: #ccc;">${p.desc}</p>
                 <div class="notes">
                     ${p.notes.map(n => `<span>${n}</span>`).join('')}
                 </div>
                 <div class="price">${p.price} دينار</div>
                 <div class="order-stats">🔥 طلب ${Math.floor(Math.random() * 5) + 1} اليوم</div>
                 <input type="text" id="name-${index}" placeholder="اسمك الكريم">
-                <input type="tel" id="phone-${index}" placeholder="رقم الموبايل">
+                <input type="tel" id="phone-${index}" placeholder="رقم الهاتف">
                 <button onclick="orderNow('${p.name}', 'name-${index}', 'phone-${index}')">اطلب الآن</button>
-                <a href="https://wa.me/962777265888?text=مرحباً لوميير، أرغب في طلب عطر ${p.name}" class="whatsapp-btn">اطلب عبر واتساب 💬</a>
             </div>
         `).join('');
     }
 
-    // إرسال الطلب لتيلجرام مباشرة
     async function orderNow(pName, nId, pId) {
         const name = document.getElementById(nId).value;
-        const phone = document.getElementById(pId).value;
+        let phone = document.getElementById(pId).value;
 
-        if(!name || !phone) return alert("يا غالي، عبي الاسم والرقم عشان نخدمك صح 🌹");
+        if(!name || !phone) return alert("يا غالي، عبي الاسم والرقم 🌹");
 
-        const message = `🚨 طلب جديد من LUMIERE! \n\n👤 الزبون: ${name} \n📞 الرقم: ${phone} \n🧴 العطر: ${pName} \n\n📍 المصدر: Vercel Site`;
+        // تنظيف رقم الهاتف ليعمل مع رابط واتساب
+        let cleanPhone = phone.replace(/\D/g, ''); 
+        if(cleanPhone.startsWith('0')) cleanPhone = '962' + cleanPhone.substring(1);
+        if(!cleanPhone.startsWith('962')) cleanPhone = '962' + cleanPhone;
+
+        const waText = `أهلاً يا ${name}، وصلني طلبك لعطر ${pName} من لوميير.. كيف بقدر أخدمك؟`;
+        const waLink = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(waText)}`;
+
+        const message = `🚨 طلب جديد من LUMIERE! \n\n👤 الزبون: ${name} \n📞 الرقم: ${phone} \n🧴 العطر: ${pName} \n\n🔗 تواصل مع العميل فوراً: \n${waLink}`;
 
         const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${encodeURIComponent(message)}`;
 
         try {
             await fetch(url);
-            alert("تم استلام طلبك لـ " + pName + " بنجاح ✅.. رح نتواصل معك قريباً!");
+            alert("تم استلام طلبك لـ " + pName + " بنجاح ✅.. رح نتواصل معك!");
             document.getElementById(nId).value = "";
             document.getElementById(pId).value = "";
         } catch (error) {
-            alert("في مشكلة بالشبكة، جرب اطلب عبر واتساب يا غالي");
+            alert("مشكلة في الشبكة، جرب مرة ثانية");
         }
     }
 
     window.onload = displayPerfumes;
 </script>
-
 </body>
 </html>
