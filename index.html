@@ -9,14 +9,12 @@
         :root { 
             --gold: #d4af37; 
             --white: #ffffff;
-            /* الوضع الافتراضي (ليلي ملكي) */
             --bg: #0a0a0a;
             --card-bg: #1a1a1a;
             --text: #ffffff;
             --input-bg: #252525;
         }
 
-        /* تنسيق الوضع النهاري (أبيض لؤلؤي) */
         body.day-mode {
             --bg: #f9f9f9;
             --card-bg: #ffffff;
@@ -30,7 +28,7 @@
             color: var(--text); 
             margin: 0; 
             direction: rtl; 
-            transition: all 1s ease; /* انتقال ناعم بين الألوان */
+            transition: all 1s ease;
         }
 
         nav { 
@@ -56,11 +54,10 @@
             overflow: hidden; 
             box-shadow: 0 15px 45px rgba(0,0,0,0.1); 
             border: 1px solid rgba(212, 175, 55, 0.2);
-            transition: transform 0.3s ease, border-color 0.3s ease;
-            perspective: 1000px; /* لتفعيل الـ 3D */
+            transition: transform 0.3s ease;
+            perspective: 1000px;
         }
 
-        /* حاوية الصورة وتأثير الـ Parallax */
         .img-container { 
             height: 380px; 
             overflow: hidden; 
@@ -68,25 +65,27 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            background: #111;
         }
 
-        .product-card img { 
-            width: 110%; /* أكبر شوي عشان الحركة ما تبين الحواف */
+        .product-card img, .custom-icon { 
+            width: 110%; 
             height: 110%;
             object-fit: cover;
-            transition: transform 0.1s linear; /* حركة سريعة ومتجاوبة مع الحساس */
-            pointer-events: none;
+            transition: transform 0.1s linear;
         }
+
+        .custom-icon { font-size: 6rem; display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; background: #000; color: var(--gold); }
 
         .content { padding: 25px; text-align: center; }
         h2 { color: var(--gold); margin: 0; font-size: 1.6rem; }
         .price { font-size: 1.4rem; margin: 10px 0; font-weight: bold; }
         .order-status { color: var(--gold); font-weight: bold; margin-bottom: 15px; font-size: 0.85rem; }
 
-        input { 
+        input, select, textarea { 
             width: 90%; padding: 12px; margin-bottom: 10px; 
             background: var(--input-bg); border: 1px solid rgba(128,128,128,0.3); 
-            border-radius: 10px; color: var(--text); text-align: center; 
+            border-radius: 10px; color: var(--text); text-align: center; font-family: 'Cairo';
         }
 
         button { 
@@ -96,15 +95,14 @@
         }
         button:hover { background: var(--text); color: var(--bg); box-shadow: 0 0 20px var(--gold); }
 
-        /* أيقونات المكونات */
-        .notes { display: flex; justify-content: center; gap: 12px; margin: 10px 0; font-size: 0.75rem; opacity: 0.8; }
-        .note { display: flex; flex-direction: column; align-items: center; }
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); overflow-y: auto; }
+        .modal-content { background: var(--card-bg); margin: 5% auto; padding: 30px; border: 1px solid var(--gold); width: 90%; max-width: 450px; border-radius: 20px; text-align: center; }
     </style>
 </head>
 <body>
 
-    <nav id="mainNav">LUMIERE</nav>
-    <div id="moodMessage" class="mood-msg">جاري تحديد الجو المناسب...</div>
+    <nav>LUMIERE</nav>
+    <div id="moodMessage" class="mood-msg">تحميل الفخامة...</div>
 
     <div class="hero">
         <div class="product-card" onmousemove="handleParallax(event, this)" onmouseleave="resetParallax(this)">
@@ -113,11 +111,6 @@
             </div>
             <div class="content">
                 <h2>LV Imagination</h2>
-                <div class="notes">
-                    <div class="note"><span>🍋</span><span>حمضيات</span></div>
-                    <div class="note"><span>🪵</span><span>خشب</span></div>
-                    <div class="note"><span>🌿</span><span>شاي</span></div>
-                </div>
                 <p class="price">13 دينار - 100 مل</p>
                 <p class="order-status">🔥 تم طلب <span class="count-number">5</span> قطع اليوم</p>
                 <input type="text" id="name1" placeholder="الاسم">
@@ -132,11 +125,6 @@
             </div>
             <div class="content">
                 <h2>LV Pacific Chill</h2>
-                <div class="notes">
-                    <div class="note"><span>🍊</span><span>برتقال</span></div>
-                    <div class="note"><span>🍃</span><span>نعناع</span></div>
-                    <div class="note"><span>🧊</span><span>انتعاش</span></div>
-                </div>
                 <p class="price">13 دينار - 100 مل</p>
                 <p class="order-status">🔥 تم طلب <span class="count-number">8</span> قطع اليوم</p>
                 <input type="text" id="name2" placeholder="الاسم">
@@ -144,16 +132,40 @@
                 <button onclick="orderNow('LV Pacific Chill', 'name2', 'phone2')">اطلب الآن 🔥</button>
             </div>
         </div>
+
+        <div class="product-card" onmousemove="handleParallax(event, this)" onmouseleave="resetParallax(this)" style="border: 2px solid var(--gold);">
+            <div class="img-container">
+                <div class="custom-icon parallax-img">🧪</div>
+            </div>
+            <div class="content">
+                <h2>صمم عطرك الخاص</h2>
+                <p style="color: #888; margin-bottom: 20px;">هوية عطرية تشبهك تماماً</p>
+                <button onclick="document.getElementById('quizModal').style.display='block'" style="background: transparent; color: var(--gold); border: 1px solid var(--gold);">ابدأ الرحلة ✨</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="quizModal" class="modal">
+        <div class="modal-content">
+            <h2 style="color: var(--gold);">مستشار لوميير الذكي</h2>
+            <input type="text" id="q_name" placeholder="الاسم الكريم">
+            <input type="text" id="q_phone" placeholder="رقم واتساب">
+            <select id="q_time">
+                <option value="">وقت الاستخدام؟</option>
+                <option value="صباحي">صباحي منعش</option>
+                <option value="مسائي">مسائي فخم</option>
+            </select>
+            <textarea id="q_notes" placeholder="روائح تحبها..."></textarea>
+            <button onclick="sendQuiz()">إرسال التفاصيل 🚀</button>
+            <button onclick="document.getElementById('quizModal').style.display='none'" style="background:none; color:grey; margin-top:10px;">إغلاق</button>
+        </div>
     </div>
 
     <script>
-        // 1. نظام الوقت الذكي (نهاري/ليلي)
         function applyLuxuryMood() {
             const hour = new Date().getHours();
             const body = document.body;
             const msg = document.getElementById('moodMessage');
-            
-            // من الساعة 6 صباحاً حتى 6 مساءً بكون وضع نهاري
             if (hour >= 6 && hour < 18) {
                 body.classList.add('day-mode');
                 msg.innerText = "صباح الخير.. ابدأ يومك بانتعاش لوميير ☀️";
@@ -163,17 +175,12 @@
             }
         }
 
-        // 2. تأثير الـ Parallax (حركة الزجاجة)
         function handleParallax(e, card) {
             const img = card.querySelector('.parallax-img');
             const rect = card.getBoundingClientRect();
-            
-            // حساب مكان الماوس بالنسبة للكرت
             const x = (e.clientX - rect.left) / rect.width - 0.5;
             const y = (e.clientY - rect.top) / rect.height - 0.5;
-
-            // تحريك الصورة ببطء عكس اتجاه الماوس لتعطي إيحاء العمق
-            img.style.transform = `scale(1.1) translate(${x * 20}px, ${y * 20}px)`;
+            img.style.transform = `scale(1.1) translate(${x * 25}px, ${y * 25}px)`;
         }
 
         function resetParallax(card) {
@@ -181,20 +188,8 @@
             img.style.transform = `scale(1) translate(0, 0)`;
         }
 
-        // دعم حركة الموبايل (حساس الميول - Gyroscope)
-        if (window.DeviceOrientationEvent) {
-            window.addEventListener('deviceorientation', (e) => {
-                const imgs = document.querySelectorAll('.parallax-img');
-                const tiltX = e.gamma / 2; // من -45 لـ 45
-                const tiltY = e.beta / 2;
+        window.onload = () => { applyLuxuryMood(); updateCounters(); };
 
-                imgs.forEach(img => {
-                    img.style.transform = `scale(1.1) translate(${tiltX}px, ${tiltY}px)`;
-                });
-            });
-        }
-
-        // تشغيل العدادات
         function updateCounters() {
             const counters = document.querySelectorAll('.count-number');
             let counts = [5, 8]; 
@@ -209,22 +204,27 @@
             }, 1200000);
         }
 
-        window.onload = () => {
-            applyLuxuryMood();
-            updateCounters();
-        };
-
-        // دالة الطلب
         async function orderNow(productName, nameId, phoneId) {
             const name = document.getElementById(nameId).value;
             const phone = document.getElementById(phoneId).value;
-            if(!name || !phone) return alert("الرجاء إدخال الاسم والرقم");
-            
+            if(!name || !phone) return alert("عبي البيانات يا بطل");
+            sendToServer({ name, phone, product: productName });
+        }
+
+        async function sendQuiz() {
+            const name = document.getElementById('q_name').value;
+            const phone = document.getElementById('q_phone').value;
+            if(!name || !phone) return alert("الاسم والرقم ضروريين");
+            sendToServer({ name, phone, product: "تصميم خاص: " + document.getElementById('q_notes').value });
+            document.getElementById('quizModal').style.display='none';
+        }
+
+        async function sendToServer(data) {
             try {
                 const res = await fetch('/api/order', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({ name, phone, product: productName })
+                    body: JSON.stringify(data)
                 });
                 if(res.ok) alert("تم استلام طلبك بنجاح ✅");
             } catch (e) { alert("حدث خطأ بسيط، حاول ثانية"); }
