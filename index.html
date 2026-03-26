@@ -18,7 +18,8 @@
         .content { padding: 30px; text-align: center; }
         h2 { color: var(--gold); margin: 0; font-size: 1.8rem; }
         .price { font-size: 1.5rem; color: var(--white); margin: 15px 0; font-weight: bold; }
-        .order-status { color: var(--gold); font-weight: bold; margin-bottom: 15px; font-size: 0.9rem; animation: fadeInUp 0.5s; }
+        /* ستايل العداد الذهبي */
+        .order-status { color: var(--gold); font-weight: bold; margin-bottom: 15px; font-size: 0.9rem; }
         input, select, textarea { width: 100%; padding: 14px; margin-bottom: 15px; background: #252525; border: 1px solid #444; border-radius: 10px; color: white; text-align: center; font-family: 'Cairo'; }
         button { width: 100%; padding: 16px; background: var(--gold); color: black; border: none; border-radius: 10px; font-weight: bold; font-size: 1.2rem; cursor: pointer; transition: 0.3s; }
         button:hover { background: #b8962d; transform: scale(1.02); }
@@ -32,26 +33,26 @@
 
     <div class="hero">
         <div class="product-card">
-            <img src="public/perfume1.jpg" alt="Pacific Chill">
+            <img src="public/perfume1.jpg" alt="Imagination">
             <div class="content">
-                <h2>LV Pacific Chill</h2>
+                <h2>LV Imagination</h2>
                 <p class="price">13 دينار - 100 مل</p>
-                <p class="order-status">🔥 تم طلب <span class="count-number">18</span> قطعة خلال الـ 24 ساعة الماضية</p>
+                <p class="order-status">🔥 تم طلب <span class="count-number">5</span> قطع خلال الـ 24 ساعة الماضية</p>
                 <input type="text" id="name1" placeholder="الاسم">
                 <input type="text" id="phone1" placeholder="رقم الهاتف">
-                <button onclick="orderNow('LV Pacific Chill', 'name1', 'phone1')">اطلب الآن 🔥</button>
+                <button onclick="orderNow('LV Imagination', 'name1', 'phone1')">اطلب الآن 🔥</button>
             </div>
         </div>
 
         <div class="product-card">
-            <img src="public/perfume2.jpg" alt="Imagination">
+            <img src="public/perfume2.jpg" alt="Pacific Chill">
             <div class="content">
-                <h2>LV Imagination</h2>
+                <h2>LV Pacific Chill</h2>
                 <p class="price">13 دينار - 100 مل</p>
-                <p class="order-status">🔥 تم طلب <span class="count-number">18</span> قطعة خلال الـ 24 ساعة الماضية</p>
+                <p class="order-status">🔥 تم طلب <span class="count-number">8</span> قطع خلال الـ 24 ساعة الماضية</p>
                 <input type="text" id="name2" placeholder="الاسم">
                 <input type="text" id="phone2" placeholder="رقم الهاتف">
-                <button onclick="orderNow('LV Imagination', 'name2', 'phone2')">اطلب الآن 🔥</button>
+                <button onclick="orderNow('LV Pacific Chill', 'name2', 'phone2')">اطلب الآن 🔥</button>
             </div>
         </div>
 
@@ -87,31 +88,25 @@
     </div>
 
     <script>
-        // دالة العداد الذكي
-      function updateCounters() {
-    const counters = document.querySelectorAll('.count-number');
-    
-    // بنعطي كل عطر رقم بداية مختلف عشان المصداقية
-    let counts = [14, 19]; // 14 للأول و 19 للثاني مثلاً
+        // دالة العداد الذكي المستقلة
+        function updateCounters() {
+            const counters = document.querySelectorAll('.count-number');
+            // مصفوفة الأرقام: الأول ببدأ بـ 5 والثاني بـ 8
+            let counts = [5, 8]; 
 
-    setInterval(() => {
-        counters.forEach((el, index) => {
-            const isIncreasing = Math.random() > 0.3;
-            
-            if (isIncreasing) {
-                counts[index] += 1;
-            } else {
-                counts[index] -= 1;
-            }
+            setInterval(() => {
+                counters.forEach((el, index) => {
+                    const isIncreasing = Math.random() > 0.4; // ميل للزيادة قليلاً
+                    counts[index] += (isIncreasing ? 1 : -1);
 
-            // حدود كل عطر (عشان يضلوا بين الـ 12 والـ 26)
-            if (counts[index] < 12) counts[index] = 12;
-            if (counts[index] > 26) counts[index] = 26;
-            
-            el.innerText = counts[index];
-        });
-    }, 1200000); // كل 20 دقيقة
-}
+                    // حدود منطقية للأرقام الفخمة (بين 4 و 12)
+                    if (counts[index] < 4) counts[index] = 4;
+                    if (counts[index] > 12) counts[index] = 12;
+                    
+                    el.innerText = counts[index];
+                });
+            }, 1200000); // تحديث هادئ كل 20 دقيقة
+        }
 
         window.onload = updateCounters;
 
