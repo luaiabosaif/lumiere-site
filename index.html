@@ -6,46 +6,56 @@
     <title>LUMIERE | لوميير للعطور</title>
     <style>
         :root { --gold: #d4af37; --dark: #0a0a0a; --gray: #1a1a1a; --white: #ffffff; }
-        body { background: var(--dark); color: var(--white); font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; }
+        body { background: var(--dark); color: var(--white); font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; overflow-x: hidden; }
         header { text-align: center; padding: 30px; border-bottom: 1px solid var(--gold); }
         h1 { color: var(--gold); letter-spacing: 4px; margin: 0; }
         .container { max-width: 1200px; margin: auto; padding: 20px; }
         
-        /* بار النقاط المستفز للزبون عشان يشتري أكثر */
+        /* بار النقاط */
         .points-card { background: var(--gray); padding: 20px; border-radius: 15px; border: 1px solid var(--gold); text-align: center; margin-bottom: 30px; }
-        .progress-bar { background: #333; height: 20px; border-radius: 10px; margin: 15px 0; overflow: hidden; border: 1px solid #444; }
-        .progress-fill { background: var(--gold); height: 100%; width: 0%; transition: 1s; }
+        .progress-bar { background: #333; height: 12px; border-radius: 10px; margin: 15px 0; overflow: hidden; }
+        .progress-fill { background: var(--gold); height: 100%; width: 0%; transition: 1s ease-in-out; }
         
+        /* شبكة العطور */
         .perfume-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
-        .perfume-card { background: var(--gray); border-radius: 15px; padding: 20px; border: 1px solid #333; position: relative; }
+        .perfume-card { background: var(--gray); border-radius: 15px; padding: 20px; border: 1px solid #333; transition: 0.3s; }
         .perfume-card img { width: 100%; border-radius: 10px; height: 350px; object-fit: cover; }
         .notes { display: flex; flex-wrap: wrap; gap: 8px; margin: 15px 0; }
         .notes span { background: #000; padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; border: 1px solid var(--gold); color: var(--gold); }
-        .price { font-size: 1.4rem; color: var(--gold); font-weight: bold; margin-bottom: 10px; }
+        .price { font-size: 1.4rem; color: var(--gold); font-weight: bold; }
         
-        input { width: 100%; padding: 12px; margin-top: 10px; background: #000; border: 1px solid #444; color: #fff; border-radius: 8px; box-sizing: border-box; }
-        button { width: 100%; padding: 15px; background: var(--gold); border: none; color: #000; font-weight: bold; cursor: pointer; border-radius: 8px; margin-top: 10px; }
-        
-        .quiz-btn-main { background: var(--gray); color: var(--gold); border: 1px solid var(--gold); padding: 15px; width: 100%; border-radius: 15px; margin-bottom: 20px; cursor: pointer; }
+        input { width: 100%; padding: 12px; margin-top: 10px; background: #000; border: 1px solid #444; color: #fff; border-radius: 8px; box-sizing: border-box; outline: none; }
+        input:focus { border-color: var(--gold); }
+        button { width: 100%; padding: 15px; background: var(--gold); border: none; color: #000; font-weight: bold; cursor: pointer; border-radius: 8px; margin-top: 10px; font-size: 1rem; }
+
+        /* --- شاشة تم استلام الطلب الفخمة --- */
+        .success-modal { display: none; position: fixed; z-index: 2000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); align-items: center; justify-content: center; text-align: center; }
+        .success-content { background: var(--gray); padding: 40px; border-radius: 20px; border: 2px solid var(--gold); max-width: 400px; width: 85%; animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .success-icon { font-size: 60px; color: var(--gold); margin-bottom: 20px; }
+        @keyframes popIn { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>LUMIERE</h1>
-</header>
+<header><h1>LUMIERE</h1></header>
 
 <div class="container">
     <div class="points-card">
-        <h3 id="pointsText">نقاطك الحالية: 0 نقطة</h3>
-        <p style="font-size: 0.9rem; color: #ccc;">جمع 650 نقطة واحصل على عطر 55 مل مجاناً! 🎁</p>
+        <h3 id="pointsText">نقاطك: 0</h3>
         <div class="progress-bar"><div id="progressFill" class="progress-fill"></div></div>
-        <p id="pointsGoal" style="font-size: 0.8rem; color: var(--gold);">باقي لك 650 نقطة على الهدية</p>
+        <p id="pointsGoal" style="font-size: 0.8rem; color: var(--gold);">اجمع 650 نقطة للعطر المجاني 🎁</p>
     </div>
 
-    <button class="quiz-btn-main" onclick="alert('قريباً: دليل اختيار العطر الذكي!')">✨ نساعدك باختيار عطرك؟</button>
-
     <div id="perfumeGrid" class="perfume-grid"></div>
+</div>
+
+<div id="successModal" class="success-modal">
+    <div class="success-content">
+        <div class="success-icon">✔</div>
+        <h2 style="color: var(--gold);">تم استلام طلبك!</h2>
+        <p>شكراً لثقتك بـ لوميير. رح نتواصل معك بأسرع وقت لتأكيد التوصيل.</p>
+        <button onclick="closeSuccess()" style="margin-top: 20px;">موافق</button>
+    </div>
 </div>
 
 <script>
@@ -61,59 +71,55 @@
     const TELEGRAM_BOT_TOKEN = '8157330507:AAEWuYgdc0DwzeQjK-sLQiSPSd5zR64jotA';
     const TELEGRAM_CHAT_ID = '1930480017';
 
-    // تحديث واجهة النقاط
     function updatePointsUI() {
-        let currentPoints = parseInt(localStorage.getItem('lumiere_points')) || 0;
-        document.getElementById('pointsText').innerText = `نقاطك الحالية: ${currentPoints} نقطة`;
-        
-        let percent = (currentPoints / 650) * 100;
-        if(percent > 100) percent = 100;
-        document.getElementById('progressFill').style.width = percent + '%';
-        
-        let remaining = 650 - currentPoints;
-        document.getElementById('pointsGoal').innerText = remaining > 0 ? `باقي لك ${remaining} نقطة على الهدية` : "مبروك! استحقيت العطر المجاني 🎁";
+        let pts = parseInt(localStorage.getItem('lumiere_pts')) || 0;
+        document.getElementById('pointsText').innerText = `نقاطك: ${pts}`;
+        let percent = (pts / 650) * 100;
+        document.getElementById('progressFill').style.width = (percent > 100 ? 100 : percent) + '%';
+        let rem = 650 - pts;
+        document.getElementById('pointsGoal').innerText = rem > 0 ? `باقي لك ${rem} نقطة على العطر المجاني` : "مبروك! استحقيت العطر الـ 55 مل المجاني 🎁";
     }
 
-    function displayPerfumes() {
-        const grid = document.getElementById('perfumeGrid');
-        grid.innerHTML = perfumes.map((p, index) => `
+    function display() {
+        document.getElementById('perfumeGrid').innerHTML = perfumes.map((p, i) => `
             <div class="perfume-card">
-                <img src="${p.img}" alt="${p.name}">
+                <img src="${p.img}">
                 <h3>${p.name}</h3>
                 <div class="notes">${p.notes.map(n => `<span>${n}</span>`).join('')}</div>
-                <div class="price">${p.price} دينار</div>
-                <p style="color:var(--gold); font-size:0.8rem;">+130 نقطة عند الشراء</p>
-                <input type="text" id="name-${index}" placeholder="الاسم الكريم">
-                <input type="tel" id="phone-${index}" placeholder="رقم الموبايل">
-                <button onclick="orderNow('${p.name}', 'name-${index}', 'phone-${index}')">اطلب الآن</button>
+                <div class="price">${p.price} د.أ</div>
+                <input type="text" id="n-${i}" placeholder="الاسم">
+                <input type="tel" id="p-${i}" placeholder="رقم الهاتف">
+                <button onclick="order('${p.name}', 'n-${i}', 'p-${i}')">اطلب الآن</button>
             </div>
         `).join('');
     }
 
-    async function orderNow(pName, nId, pId) {
+    async function order(pName, nId, pId) {
         const name = document.getElementById(nId).value;
         const phone = document.getElementById(pId).value;
-        if(!name || !phone) return alert("يا غالي عبي بياناتك 🌹");
+        if(!name || !phone) return alert("عبي البيانات يا غالي 🌹");
 
-        // إضافة النقاط عند الطلب
-        let points = parseInt(localStorage.getItem('lumiere_points')) || 0;
-        points += 130;
-        localStorage.setItem('lumiere_points', points);
+        let pts = parseInt(localStorage.getItem('lumiere_pts')) || 0;
+        pts += 130;
+        localStorage.setItem('lumiere_pts', pts);
         updatePointsUI();
 
-        // تجهيز رابط الواتساب
-        let cleanPhone = phone.replace(/\D/g, ''); 
-        if(cleanPhone.startsWith('0')) cleanPhone = '962' + cleanPhone.substring(1);
-        const waLink = `https://wa.me/${cleanPhone}?text=${encodeURIComponent('أهلاً ' + name + '، سجلت طلبك لعطر ' + pName + ' ونقاطك صارت ' + points)}`;
+        let clean = phone.replace(/\D/g, ''); 
+        if(clean.startsWith('0')) clean = '962' + clean.substring(1);
+        const wa = `https://wa.me/${clean}?text=${encodeURIComponent('أهلاً ' + name + '، سجلنا طلبك لعطر ' + pName)}`;
+        const msg = `🚨 طلب جديد: \n👤 الزبون: ${name}\n📞 الرقم: ${phone}\n🧴 العطر: ${pName}\n⭐ النقاط: ${pts}\n\n🔗 واتساب:\n${wa}`;
 
-        const message = `🚨 طلب جديد: \n👤 الزبون: ${name}\n📞 الرقم: ${phone}\n🧴 العطر: ${pName}\n⭐ نقاطه الحالية: ${points}\n\n🔗 تواصل واتساب:\n${waLink}`;
-
-        await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${encodeURIComponent(message)}`);
+        await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${encodeURIComponent(msg)}`);
         
-        alert(`تم استلام طلبك! ✅\nمبروك، ربحت 130 نقطة. مجموعك الآن: ${points}`);
+        // إظهار الشاشة الفخمة
+        document.getElementById('successModal').style.display = 'flex';
+        document.getElementById(nId).value = "";
+        document.getElementById(pId).value = "";
     }
 
-    window.onload = () => { displayPerfumes(); updatePointsUI(); };
+    function closeSuccess() { document.getElementById('successModal').style.display = 'none'; }
+
+    window.onload = () => { display(); updatePointsUI(); };
 </script>
 </body>
 </html>
