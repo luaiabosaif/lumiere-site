@@ -7,63 +7,81 @@
     <style>
         :root { --gold: #d4af37; --dark: #0a0a0a; --gray: #1a1a1a; --white: #ffffff; }
         body { background: var(--dark); color: var(--white); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
-        
-        /* الهيدر مع اللوجو */
         header { text-align: center; padding: 20px 10px; border-bottom: 1px solid var(--gold); background: var(--dark); }
         .logo-img { height: 100px; max-width: 80%; object-fit: contain; }
-
         .container { max-width: 1200px; margin: auto; padding: 20px; }
         
         /* نظام النقاط */
         .points-card { background: var(--gray); padding: 20px; border-radius: 15px; border: 1px solid var(--gold); text-align: center; margin-bottom: 25px; }
-        .progress-bar { background: #333; height: 12px; border-radius: 10px; margin: 15px 0; overflow: hidden; }
-        .progress-fill { background: var(--gold); height: 100%; width: 0%; transition: 1s ease-in-out; }
+        .progress-bar { background: #333; height: 10px; border-radius: 10px; margin: 10px 0; overflow: hidden; }
+        .progress-fill { background: var(--gold); height: 100%; width: 0%; transition: 1s ease; }
         
-        /* أزرار الفرز (رجالي/نسائي) */
-        .filter-container { text-align: center; margin-bottom: 30px; }
-        .filter-btn { background: none; border: 1px solid var(--gold); color: var(--gold); padding: 10px 25px; margin: 5px; cursor: pointer; border-radius: 25px; font-weight: bold; transition: 0.3s; }
-        .filter-btn.active { background: var(--gold); color: #000; }
+        /* قسم صمم عطرك الخاص - الشكل الجديد */
+        .custom-design-section { background: linear-gradient(45deg, #1a1a1a, #000); padding: 25px; border-radius: 15px; border: 2px dashed var(--gold); text-align: center; margin-bottom: 30px; }
+        .step-box { display: none; animation: fadeIn 0.5s; }
+        .step-box.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* دليل اختيار العطر */
-        .quiz-box { background: var(--gray); padding: 20px; border-radius: 15px; border: 1px solid #333; text-align: center; margin-bottom: 30px; cursor: pointer; border-style: dashed; }
+        /* أزرار الفرز */
+        .filter-container { text-align: center; margin-bottom: 25px; }
+        .filter-btn { background: none; border: 1px solid var(--gold); color: var(--gold); padding: 8px 20px; margin: 5px; cursor: pointer; border-radius: 20px; font-weight: bold; }
+        .filter-btn.active { background: var(--gold); color: #000; }
 
         /* شبكة العطور */
         .perfume-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
-        .perfume-card { background: var(--gray); border-radius: 15px; padding: 20px; border: 1px solid #333; position: relative; transition: 0.3s; }
-        .perfume-card:hover { border-color: var(--gold); transform: translateY(-5px); }
-        .perfume-card img { width: 100%; border-radius: 10px; height: 350px; object-fit: cover; margin-bottom: 15px; }
+        .perfume-card { background: var(--gray); border-radius: 15px; padding: 20px; border: 1px solid #333; transition: 0.3s; position: relative; }
+        .perfume-card img { width: 100%; border-radius: 10px; height: 350px; object-fit: cover; }
         .notes { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0; }
         .notes span { background: #000; padding: 4px 10px; border-radius: 15px; font-size: 0.75rem; border: 1px solid var(--gold); color: var(--gold); }
-        .price { font-size: 1.4rem; color: var(--gold); font-weight: bold; margin: 10px 0; }
+        .price { font-size: 1.4rem; color: var(--gold); font-weight: bold; }
 
-        input { width: 100%; padding: 12px; margin-top: 8px; background: #000; border: 1px solid #444; color: #fff; border-radius: 8px; box-sizing: border-box; outline: none; }
-        input:focus { border-color: var(--gold); }
-        .order-btn { width: 100%; padding: 15px; background: var(--gold); border: none; color: #000; font-weight: bold; cursor: pointer; border-radius: 8px; margin-top: 10px; font-size: 1rem; }
+        input, select, textarea { width: 100%; padding: 12px; margin-top: 8px; background: #000; border: 1px solid #444; color: #fff; border-radius: 8px; box-sizing: border-box; }
+        .order-btn { width: 100%; padding: 15px; background: var(--gold); border: none; color: #000; font-weight: bold; cursor: pointer; border-radius: 8px; margin-top: 10px; }
 
-        /* شاشة النجاح (Modal) */
-        .modal { display: none; position: fixed; z-index: 3000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); align-items: center; justify-content: center; }
-        .modal-content { background: var(--gray); padding: 40px; border-radius: 20px; border: 2px solid var(--gold); max-width: 400px; width: 85%; text-align: center; animation: pop 0.4s; }
-        @keyframes pop { from { transform: scale(0.7); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-        
-        footer { text-align: center; padding: 40px; color: #666; font-size: 0.8rem; border-top: 1px solid #222; margin-top: 50px; }
+        /* Modal النجاح */
+        .modal { display: none; position: fixed; z-index: 5000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); align-items: center; justify-content: center; text-align: center; }
+        .modal-content { background: var(--gray); padding: 30px; border-radius: 20px; border: 1px solid var(--gold); width: 85%; max-width: 400px; }
     </style>
 </head>
 <body>
 
-<header>
-    <img src="logo-clear.png" alt="LUMIERE" class="logo-img">
-</header>
+<header><img src="logo-clear.png" alt="LUMIERE" class="logo-img"></header>
 
 <div class="container">
     <div class="points-card">
         <h3 id="ptsTxt">نقاطك: 0</h3>
         <div class="progress-bar"><div id="bar" class="progress-fill"></div></div>
-        <p id="ptsGoal" style="font-size: 0.8rem; color: var(--gold);">اجمع 650 نقطة واحصل على عطر 55 مل مجاناً! 🎁</p>
+        <p style="font-size: 0.8rem; color: var(--gold);">اجمع 650 نقطة واحصل على عطر 55 مل مجاناً! 🎁</p>
     </div>
 
-    <div class="quiz-box" onclick="openQuiz()">
-        <h3 style="color: var(--gold); margin: 0;">✨ نساعدك باختيار عطرك؟</h3>
-        <p style="font-size: 0.8rem; margin: 5px 0;">جاوب على 3 أسئلة لنحدد العطر المثالي لك</p>
+    <div class="custom-design-section" id="customSection">
+        <div id="step1" class="step-box active">
+            <h2 style="color: var(--gold); margin-top: 0;">🧪 صمم عطرك الخاص</h2>
+            <p>حابب نعملك عطر حسب مواصفاتك ورغبتك؟</p>
+            <button class="order-btn" onclick="nextStep(2)">ابدأ تصميم عطرك الآن</button>
+        </div>
+
+        <div id="step2" class="step-box">
+            <h3 style="color: var(--gold);">1. كيف تحب قوة العطر؟</h3>
+            <button class="filter-btn" onclick="setPref('power', 'فوحان هادئ'); nextStep(3);">هادئ وناعم</button>
+            <button class="filter-btn" onclick="setPref('power', 'فوحان قوي جداً'); nextStep(3);">قوي ونفاذ</button>
+        </div>
+
+        <div id="step3" class="step-box">
+            <h3 style="color: var(--gold);">2. شو الروائح اللي بتجذبك؟</h3>
+            <button class="filter-btn" onclick="setPref('base', 'روائح خشبية وعود'); nextStep(4);">خشب وعود</button>
+            <button class="filter-btn" onclick="setPref('base', 'روائح فواكه وانتعاش'); nextStep(4);">فواكه وانتعاش</button>
+            <button class="filter-btn" onclick="setPref('base', 'روائح فانيلا وسويت'); nextStep(4);">فانيلا وسويت</button>
+        </div>
+
+        <div id="step4" class="step-box">
+            <h3 style="color: var(--gold);">3. معلومات التواصل</h3>
+            <input type="text" id="custName" placeholder="اسمك الكريم">
+            <input type="tel" id="custPhone" placeholder="رقم الهاتف">
+            <textarea id="custNotes" placeholder="أضف أي رغبات أخرى (اختياري)"></textarea>
+            <button class="order-btn" onclick="sendCustomOrder()">إرسال طلب التصميم</button>
+            <button style="background:none; color:#666; border:none; margin-top:10px;" onclick="nextStep(1)">رجوع</button>
+        </div>
     </div>
 
     <div class="filter-container">
@@ -77,48 +95,36 @@
 
 <div id="successModal" class="modal">
     <div class="modal-content">
-        <div style="font-size: 60px; color: var(--gold); margin-bottom: 20px;">✔</div>
-        <h2 style="color: var(--gold);">تم استلام طلبك!</h2>
-        <p>شكراً لثقتك بـ لوميير. رح نتواصل معك قريباً لتأكيد طلبك.</p>
-        <button class="order-btn" onclick="closeSuccess()">موافق</button>
+        <h2 style="color: var(--gold);">تم استلام طلبك! ✅</h2>
+        <p>مختبر لوميير استلم طلبك.. رح نتواصل معك قريباً.</p>
+        <button class="order-btn" onclick="location.reload()">موافق</button>
     </div>
 </div>
 
-<div id="quizModal" class="modal">
-    <div class="modal-content" id="quizBody"></div>
-</div>
-
-<footer>&copy; 2026 LUMIERE | LUXURY FRAGRANCE</footer>
-
 <script>
     const perfumes = [
-        // عطور رجالية
-        { name: "LV Imagination 100ML", price: "13", cat: "men", img: "perfume1.jpg", desc: "إبداع من الحمضيات والشاي الصيني المنعش.", notes: ["🍋 ليمون", "🌿 شاي", "🪵 خشب"], mood: "صيفي" },
-        { name: "LV Pacific Chill 100ML", price: "13", cat: "men", img: "perfume2.jpg", desc: "انتعاش المحيط بلسمة الكشمش الأسود.", notes: ["🍊 برتقال", "🍃 نعناع", "🧊 انتعاش"], mood: "صيفي" },
-        { name: "TERRE DHERMES 110ML", price: "14", cat: "men", img: "perfume3.jpg", desc: "تركيبة خشبية وتوابل دافئة للرجل الواثق.", notes: ["✨ خشب", "🌹 أزهار", "🪵 عود"], mood: "رسمي" },
-        { name: "DE MARLY PEGASUS 110ML", price: "14", cat: "men", img: "perfume4.jpg", desc: "عطر يجمع الأناقة الكلاسيكية بالرائحة الدافئة.", notes: ["🌰 عنبر", "🪵 خشب الأرز", "✨ الورد"], mood: "رسمي" },
-        { name: "GISSAH IMPEREAL 110ML", price: "14", cat: "men", img: "perfume5.jpg", desc: "إشراقة صباحية مفعمة بالحيوية والنشاط.", notes: ["🍏 فواكه", "🌸 زهور", "🍋 حمضيات"], mood: "يومي" },
-        { name: "FRANKEL AVENTUS ASSAF 110ML", price: "14", cat: "men", img: "perfume6.jpg", desc: "البصمة الخاصة لبراند لوميير الأكثر طلباً.", notes: ["🔱 خاص", "🪵 ليمون", "🍋 العنبر"], mood: "يومي" },
-
-        // عطور نسائية
-        { name: "MADAWI 100ML", price: "13", cat: "women", img: "perfume7.jpg", desc: "تتمتع بتركيبتها التي تدوم طويلاً وتمنحك شعوراً بالانتعاش.", notes: ["🍑 خوخ", "🌸 زهر", "🌹 ورد", "✨ مسك"], mood: "رسمي" },
-        { name: "SCANDAL 100ML", price: "13", cat: "women", img: "perfume8.jpg", desc: "عطر جريء وفاخر يعكس شخصية قوية وجذابة.", notes: ["🌹 ورد زهري", "🍯 عسل"], mood: "رسمي" },
-        { name: "LA VIDA ES BELLA 100ML", price: "13", cat: "women", img: "perfume9.jpg", desc: "يتميز بمزيج ساحر بين الروائح الفاكهية والزهرية.", notes: ["🍐 كمثرى", "🍦 فانيلا", "🍊 برتقال", "🌸 ياسم"], mood: "يومي" }
+        { name: "LV Imagination 100ML", price: "13", cat: "men", img: "perfume1.jpg", desc: "إبداع من الحمضيات والشاي الصيني المنعش.", notes: ["🍋 ليمون", "🌿 شاي", "🪵 خشب"] },
+        { name: "LV Pacific Chill 100ML", price: "13", cat: "men", img: "perfume2.jpg", desc: "انتعاش المحيط بلسمة الكشمش الأسود.", notes: ["🍊 برتقال", "🍃 نعناع", "🧊 انتعاش"] },
+        { name: "TERRE DHERMES 110ML", price: "14", cat: "men", img: "perfume3.jpg", desc: "تركيبة خشبية وتوابل دافئة للرجل الواثق.", notes: ["✨ خشب", "🌹 أزهار", "🪵 عود"] },
+        { name: "DE MARLY PEGASUS 110ML", price: "14", cat: "men", img: "perfume4.jpg", desc: "عطر يجمع الأناقة الكلاسيكية بالرائحة الدافئة.", notes: ["🌰 عنبر", "🪵 خشب الأرز", "✨ الورد"] },
+        { name: "GISSAH IMPEREAL 110ML", price: "14", cat: "men", img: "perfume5.jpg", desc: "إشراقة صباحية مفعمة بالحيوية والنشاط.", notes: ["🍏 فواكه", "🌸 زهور", "🍋 حمضيات"] },
+        { name: "FRANKEL AVENTUS ASSAF 110ML", price: "14", cat: "men", img: "perfume6.jpg", desc: "البصمة الخاصة لبراند لوميير الأكثر طلباً.", notes: ["🔱 خاص", "🪵 ليمون", "🍋 العنبر"] },
+        { name: "MADAWI 100ML", price: "13", cat: "women", img: "perfume7.jpg", desc: "تتمتع بتركيبتها التي تدوم طويلاً وتمنحك شعوراً بالانتعاش.", notes: ["🍑 خوخ", "🌸 زهر", "🌹 ورد", "✨ مسك"] },
+        { name: "SCANDAL 100ML", price: "13", cat: "women", img: "perfume8.jpg", desc: "عطر جريء وفاخر يعكس شخصية قوية وجذابة.", notes: ["🌹 ورد زهري", "🍯 عسل"] },
+        { name: "LA VIDA ES BELLA 100ML", price: "13", cat: "women", img: "perfume9.jpg", desc: "يتميز بمزيج ساحر بين الروائح الفاكهية والزهرية.", notes: ["🍐 كمثرى", "🍦 فانيلا", "🍊 برتقال", "🌸 ياسمين"] }
     ];
 
-    const BOT_TOKEN = '8157330507:AAEWuYgdc0DwzeQjK-sLQiSPSd5zR64jotA';
-    const CHAT_ID = '1930480017';
+    const BOT = '8157330507:AAEWuYgdc0DwzeQjK-sLQiSPSd5zR64jotA';
+    const CHAT = '1930480017';
+    let userPrefs = {};
 
     function updatePoints() {
         let pts = parseInt(localStorage.getItem('l_pts')) || 0;
         document.getElementById('ptsTxt').innerText = `نقاطك: ${pts}`;
         document.getElementById('bar').style.width = Math.min((pts/650)*100, 100) + '%';
-        let rem = 650 - pts;
-        document.getElementById('ptsGoal').innerText = rem > 0 ? `باقي لك ${rem} نقطة على العطر المجاني 🎁` : "استحقيت العطر المجاني 55 مل! 🎁";
     }
 
     function render(category) {
-        // تحديث شكل الأزرار
         document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
         if(category === 'all') document.getElementById('btn-all').classList.add('active');
         if(category === 'men') document.getElementById('btn-men').classList.add('active');
@@ -129,49 +135,43 @@
         
         grid.innerHTML = data.map((p, i) => `
             <div class="perfume-card">
-                <img src="${p.img}" alt="${p.name}">
+                <img src="${p.img}">
                 <h3>${p.name}</h3>
                 <p style="font-size:0.85rem; color:#aaa; min-height:40px;">${p.desc}</p>
                 <div class="notes">${p.notes.map(n => `<span>${n}</span>`).join('')}</div>
                 <div class="price">${p.price} د.أ</div>
-                <input type="text" id="name-${i}" placeholder="الاسم">
-                <input type="tel" id="phone-${i}" placeholder="رقم الهاتف">
-                <button class="order-btn" onclick="sendOrder('${p.name}', 'name-${i}', 'phone-${i}')">اطلب الآن</button>
+                <input type="text" id="n-${i}" placeholder="الاسم">
+                <input type="tel" id="p-${i}" placeholder="رقم الهاتف">
+                <button class="order-btn" onclick="sendOrder('${p.name}', 'n-${i}', 'p-${i}')">اطلب الآن</button>
             </div>
         `).join('');
     }
 
-    async function sendOrder(pName, nId, pId) {
-        const name = document.getElementById(nId).value;
-        const phone = document.getElementById(pId).value;
-        if(!name || !phone) return alert("عبي البيانات يا غالي 🌹");
+    // منطق "صمم عطرك"
+    function nextStep(s) {
+        document.querySelectorAll('.step-box').forEach(b => b.classList.remove('active'));
+        document.getElementById('step' + s).classList.add('active');
+    }
+    function setPref(key, val) { userPrefs[key] = val; }
 
-        let pts = (parseInt(localStorage.getItem('l_pts')) || 0) + 130;
-        localStorage.setItem('l_pts', pts);
-        updatePoints();
-
-        let clean = phone.replace(/\D/g, ''); 
-        if(clean.startsWith('0')) clean = '962' + clean.substring(1);
-        const wa = `https://wa.me/${clean}?text=${encodeURIComponent('أهلاً ' + name + '، سجلنا طلبك لعطر ' + pName + ' ونقاطك صارت ' + pts)}`;
-        const msg = `🚨 طلب لوميير:\n👤 الزبون: ${name}\n📞 الرقم: ${phone}\n🧴 العطر: ${pName}\n⭐ النقاط: ${pts}\n\n🔗 تواصل واتساب:\n${wa}`;
-
-        await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(msg)}`);
+    async function sendCustomOrder() {
+        const n = document.getElementById('custName').value, p = document.getElementById('custPhone').value, note = document.getElementById('custNotes').value;
+        if(!n || !p) return alert("عبي الاسم والرقم يا غالي");
+        
+        const msg = `🧪 طلب تركيب خاص:\n👤 الزبون: ${n}\n📞 الرقم: ${p}\n⚡ القوة: ${userPrefs.power}\n🌿 القاعدة: ${userPrefs.base}\n📝 ملاحظات: ${note}`;
+        await fetch(`https://api.telegram.org/bot${BOT}/sendMessage?chat_id=${CHAT}&text=${encodeURIComponent(msg)}`);
         document.getElementById('successModal').style.display = 'flex';
     }
 
-    function closeSuccess() { document.getElementById('successModal').style.display = 'none'; }
-
-    // الكويز
-    function openQuiz() { document.getElementById('quizModal').style.display = 'flex'; step1(); }
-    function step1() {
-        document.getElementById('quizBody').innerHTML = `<h3>أي جو تفضل؟</h3>
-            <button class="filter-btn" style="width:100%" onclick="finish('صيفي')">صيفي وانتعاش</button>
-            <button class="filter-btn" style="width:100%" onclick="finish('رسمي')">رسمي وفخامة</button>
-            <button class="filter-btn" style="width:100%" onclick="finish('يومي')">يومي وجذاب</button>`;
-    }
-    function finish(m) {
-        const res = perfumes.find(p => p.mood === m) || perfumes[0];
-        document.getElementById('quizBody').innerHTML = `<h3 style="color:var(--gold)">نرشح لك: ${res.name}</h3><p>بناءً على ذوقك، هذا العطر هو الأنسب.</p><button class="order-btn" onclick="location.reload()">الرجوع للمتجر</button>`;
+    async function sendOrder(pName, nId, pId) {
+        const n = document.getElementById(nId).value, p = document.getElementById(pId).value;
+        if(!n || !p) return alert("عبي البيانات");
+        let pts = (parseInt(localStorage.getItem('l_pts')) || 0) + 130;
+        localStorage.setItem('l_pts', pts);
+        updatePoints();
+        const msg = `🚨 طلب عطر: ${pName}\n👤 الزبون: ${n}\n📞 الرقم: ${p}\n⭐ النقاط: ${pts}`;
+        await fetch(`https://api.telegram.org/bot${BOT}/sendMessage?chat_id=${CHAT}&text=${encodeURIComponent(msg)}`);
+        document.getElementById('successModal').style.display = 'flex';
     }
 
     window.onload = () => { render('all'); updatePoints(); };
