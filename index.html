@@ -179,15 +179,26 @@
     }
 
     async function sendOrder(pName, nId, pId) {
-        const n = document.getElementById(nId).value, p = document.getElementById(pId).value;
-        if(!n || !p) return alert("عبي البيانات");
-        let pts = (parseInt(localStorage.getItem('l_pts')) || 0) + 130;
-        localStorage.setItem('l_pts', pts);
-        updatePoints();
-        const msg = `🚨 طلب عطر: ${pName}\n👤 ${n}\n📞 ${p}\n⭐ النقاط: ${pts}`;
-        await fetch(`https://api.telegram.org/bot${BOT}/sendMessage?chat_id=${CHAT}&text=${encodeURIComponent(msg)}`);
-        document.getElementById('successModal').style.display = 'flex';
-    }
+    const n = document.getElementById(nId).value;
+    const p = document.getElementById(pId).value;
+    
+    if(!n || !p) return alert("عبي البيانات يا غالي 🌹");
+    
+    let pts = (parseInt(localStorage.getItem('l_pts')) || 0) + 130;
+    localStorage.setItem('l_pts', pts);
+    updatePoints();
+
+    // تجهيز رابط الواتساب (تحويل الرقم لصيغة دولية تلقائياً)
+    let clean = p.replace(/\D/g, ''); 
+    if(clean.startsWith('0')) clean = '962' + clean.substring(1);
+    const wa = `https://wa.me/${clean}?text=${encodeURIComponent('أهلاً ' + n + '، طلبك لعطر ' + pName + ' مسجل بنجاح في لوميير ونقاطك صارت ' + pts)}`;
+
+    // شكل الرسالة اللي بتوصلك على تيلجرام
+    const msg = `🚨 طلب لوميير جديد:\n\n👤 الزبون: ${n}\n📞 الرقم: ${p}\n🧴 العطر: ${pName}\n⭐ مجموع النقاط: ${pts}\n\n🔗 تواصل مع العميل:\n${wa}`;
+
+    await fetch(`https://api.telegram.org/bot${BOT}/sendMessage?chat_id=${CHAT}&text=${encodeURIComponent(msg)}`);
+    document.getElementById('successModal').style.display = 'flex';
+}
 
     window.onload = () => { render('all'); updatePoints(); };
 </script>
